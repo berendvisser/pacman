@@ -348,3 +348,13 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+html
+pacman
+Debug
+Release
+SDL2.dll
+obj
+*.exe
+pacman.exp
+pacman.lib
