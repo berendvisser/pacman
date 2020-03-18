@@ -1,11 +1,7 @@
 /// \file
 /// main.cpp
-
-/*
- *  Created on: Jan 29, 2015
- *      Author:
- *       Group:
- */
+//Berend Visser
+//S1499270
 
 #include "GameObjectStruct.h"
 #include "UI.h"
@@ -29,6 +25,7 @@ Uint32 gameUpdate(Uint32 interval, void * /*param*/)
 /// Program entry point.
 int main(int /*argc*/, char ** /*argv*/)
 {
+    
     std::vector<std::vector<int>> map = {{
         #include "board.def"
     }};
@@ -82,10 +79,10 @@ int main(int /*argc*/, char ** /*argv*/)
         }
 
         // Set the score
-        ui.setScore(12345); // <-- Pass correct value to the setter
+        ui.setScore(1); // <-- Pass correct value to the setter
 
         // Set the amount of lives
-        ui.setLives(3); // <-- Pass correct value to the setter
+        ui.setLives(1); // <-- Pass correct value to the setter
 
         // Render the scene
         std::vector<GameObjectStruct> objects = {pacman};
