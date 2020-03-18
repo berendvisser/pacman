@@ -2,6 +2,7 @@
 /// main.cpp
 //Berend Visser
 //S1499270
+//group:30
 
 #include "GameObjectStruct.h"
 #include "UI.h"
@@ -21,7 +22,7 @@
 Uint32 gameUpdate(Uint32 interval, void * /*param*/)
 {
     // Do game loop update here
-    std::cout << "test\n";
+    
     return interval;
 }
 
@@ -95,6 +96,8 @@ int main(int /*argc*/, char ** /*argv*/)
 
         while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
             // ... do work until timeout has elapsed
+
+
         }
     }
 
