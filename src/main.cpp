@@ -10,6 +10,8 @@
 #include <vector>
 #include <iostream>
 
+#include "Board.h"
+
 
 /// Callback function to update the game state.
 ///
@@ -30,12 +32,14 @@ Uint32 gameUpdate(Uint32 interval, void * /*param*/)
 int main(int /*argc*/, char ** /*argv*/)
 {
     
-    std::vector<std::vector<int>> map = {{
-        #include "board.def"
-    }};
+    Board map;
+
+
+
+    
 
     // Create a new ui object
-    UI ui(map); // <-- use map from your game objects.
+    UI ui(map.getBoard()); // <-- use map from your game objects.
 
     // Start timer for game update, call this function every 100 ms.
     SDL_TimerID timer_id =
@@ -43,10 +47,16 @@ int main(int /*argc*/, char ** /*argv*/)
 
     // Example object, this can be removed later
     GameObjectStruct pacman;
-    pacman.x = 1;
-    pacman.y = 1;
+    pacman.x = 0;
+    pacman.y = 8;
     pacman.type = PACMAN;
     pacman.dir = UP;
+
+    GameObjectStruct ghost;
+    ghost.x = 2;
+    ghost.y = 1;
+    ghost.dir = DOWN;
+    ghost.type = BLINKY;
 
     // Call game init code here
 
@@ -90,8 +100,11 @@ int main(int /*argc*/, char ** /*argv*/)
 
         // Render the scene
         std::vector<GameObjectStruct> objects = {pacman};
-        // ^-- Your code should provide this vector somehow (e.g.
-        // game->getStructs())
+
+        objects.push_back(ghost);
+
+
+
         ui.update(objects);
 
         while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
