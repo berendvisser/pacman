@@ -24,7 +24,7 @@
 Uint32 gameUpdate(Uint32 interval, void * /*param*/)
 {
     // Do game loop update here
-    
+    std::cout << interval << std::endl;
     return interval;
 }
 
@@ -77,13 +77,17 @@ int main(int /*argc*/, char ** /*argv*/)
             // All keydown events
             if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
-                case SDLK_LEFT: // YOUR CODE HERE
+                case SDLK_LEFT: 
+                    pacman.dir = LEFT;
                     break;
-                case SDLK_RIGHT: // YOUR CODE HERE
+                case SDLK_RIGHT: 
+                    pacman.dir = RIGHT;
                     break;
-                case SDLK_UP: // YOUR CODE HERE
+                case SDLK_UP:
+                    pacman.dir = UP;
                     break;
-                case SDLK_DOWN: // YOUR CODE HERE
+                case SDLK_DOWN:
+                    pacman.dir = DOWN;
                     break;
                 case SDLK_ESCAPE:
                     quit = true;
@@ -109,6 +113,8 @@ int main(int /*argc*/, char ** /*argv*/)
 
         while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
             // ... do work until timeout has elapsed
+            ui.update(objects);
+
 
 
         }

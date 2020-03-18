@@ -1,6 +1,4 @@
-#ifndef SRC_BOARD_H_
-#define SRC_BOARD_H_
-
+#pragma once
 #include<vector>
 
 
@@ -26,11 +24,4 @@ public:
 private:
     //map
     std::vector<std::vector<int>> map;
-
-
-
-
 };
-
-
-#endif 

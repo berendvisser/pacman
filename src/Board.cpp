@@ -39,9 +39,7 @@ bool Board::isWall(unsigned x, unsigned y)
     else 
     {
         return true;
-    }
-    
-   
+    } 
     
 }
 
