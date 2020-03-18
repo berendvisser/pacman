@@ -7,6 +7,8 @@
 #include "UI.h"
 #include <SDL2/SDL.h>
 #include <vector>
+#include <iostream>
+
 
 /// Callback function to update the game state.
 ///
@@ -19,6 +21,7 @@
 Uint32 gameUpdate(Uint32 interval, void * /*param*/)
 {
     // Do game loop update here
+    std::cout << "test\n";
     return interval;
 }
 

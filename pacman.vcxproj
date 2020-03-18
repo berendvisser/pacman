@@ -101,12 +101,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="MovableEntity.cpp" />
+    <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="include\GameObjectStruct.h" />
     <ClInclude Include="include\UI.h" />
+    <ClInclude Include="MovableEntity.h" />
+    <ClInclude Include="Pacman.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
