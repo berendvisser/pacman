@@ -57,10 +57,19 @@ public:
     }
 
     //sizes of board
-    unsigned sizeBoardX;
-    unsigned sizeBoardY;
+    unsigned getBoardSizeX()
+    {
+        return this->sizeBoardX;
+    }
+    unsigned getBoardSizeY()
+    {
+        return this->sizeBoardY;
+    }
+
 
 private:
     //map
+    unsigned sizeBoardX;
+    unsigned sizeBoardY;
     std::vector<std::vector<int>> map;
 };

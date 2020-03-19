@@ -43,7 +43,10 @@ public:
 
 	Position getNextPosition(Position curPos, Direction curDir)
 	{
-		
+		unsigned boardSizeX = this->map->getBoardSizeX();
+		unsigned boardSizeY = this->map->getBoardSizeY();;
+		curPos.x += boardSizeX;
+		curPos.y += boardSizeY;
 		switch (curDir)
 		{
 		case UP:
@@ -62,6 +65,10 @@ public:
 			curPos.x++;
 			break;
 		}
+
+		curPos.x %= boardSizeX;
+		curPos.y %= boardSizeY;
+
 		return curPos;
 
 	}
