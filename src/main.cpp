@@ -12,6 +12,7 @@
 
 #include "Board.h"
 #include "Entity.h"
+#include "MovableEntity.h"
 
 
 /// Callback function to update the game state.
@@ -25,7 +26,17 @@
 Uint32 gameUpdate(Uint32 interval, void * param)
 {
     // Do game loop update here
-    unsigned* tmpTick = static_cast<unsigned*>(param);
+    void** x = static_cast<void**>(param);
+
+    
+    
+
+    
+    Direction* tmpdirectionkey = static_cast<Direction*>(x[1]);
+    Direction* tmpdirectiontick = static_cast<Direction*>(x[2]);
+    *tmpdirectiontick = *tmpdirectionkey;
+
+    unsigned * tmpTick = static_cast<unsigned*>(x[0]);
     (*tmpTick)++;    
     return interval;
 }
@@ -35,21 +46,25 @@ int main(int /*argc*/, char ** /*argv*/)
 {
     
     Board map;
+    Direction inputDirKey = RIGHT;
+    Direction inputDirTick = RIGHT;
 
     unsigned previousTicks = 0;
-    unsigned currentTicks = 0;
+    unsigned currentTicks = 1;
     
+    void* parameters[3] = { &currentTicks,&inputDirKey, &inputDirTick};
 
     // Create a new ui object
     UI ui(map.getBoard()); // <-- use map from your game objects.
 
     // Start timer for game update, call this function every 100 ms.
     SDL_TimerID timer_id =
-        SDL_AddTimer(200, gameUpdate, static_cast<void*>( &currentTicks));
+        SDL_AddTimer(120, gameUpdate, parameters);
 
     
-    Entity pacman(PACMAN);
-    pacman.setPosition(2, 2);
+    MovableEntity pacman(PACMAN, &map);
+    pacman.setPosition({ 1,1 });
+    
 
 
     // Call game init code here
@@ -72,18 +87,19 @@ int main(int /*argc*/, char ** /*argv*/)
             if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
                 case SDLK_LEFT: 
-                    
+                    inputDirKey = LEFT;
                     break;
                 case SDLK_RIGHT: 
-                    
+                    inputDirKey = RIGHT;
                     break;
                 case SDLK_UP:
-                    
+                    inputDirKey = UP;
                     break;
                 case SDLK_DOWN:
-                    
+                    inputDirKey = DOWN;
                     break;
                 case SDLK_ESCAPE:
+
                     quit = true;
                     break;
                 }
@@ -101,16 +117,22 @@ int main(int /*argc*/, char ** /*argv*/)
 
         
 
-        std::vector<GameObjectStruct> objects = { pacman.getEntityType() };
+        
 
-        ui.update(objects);
+       
 
         while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
             // ... do work until timeout has elapsed
-            
-            std::vector<GameObjectStruct> objects = { pacman.getEntityType() };
 
-            ui.update(objects);
+            if (currentTicks > previousTicks)
+            {
+                pacman.setDirection(inputDirTick);
+                pacman.moveEntity();
+                std::vector<GameObjectStruct> objects = { pacman.getEntityType() };                                                      
+                ui.update(objects);
+                previousTicks = currentTicks;
+            }
+
 
 
 

@@ -43,7 +43,6 @@ public:
 
 	Position getNextPosition(Position curPos, Direction curDir)
 	{
-		
 		switch (curDir)
 		{
 		case UP:
