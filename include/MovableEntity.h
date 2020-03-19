@@ -4,7 +4,10 @@
 class MovableEntity: public Entity
 {
 public:
-	MovableEntity(Type EntityType, Board* tmpBoard) : Entity(EntityType, tmpBoard) {}
+	MovableEntity(Type EntityType, Board* tmpBoard) : Entity(EntityType, tmpBoard)
+	{
+		this->setPosition({ 1,1 });
+	}
 
 	/*Moves entity in current directio*/
 	void moveEntity()

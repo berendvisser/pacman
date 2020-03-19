@@ -63,7 +63,7 @@ int main(int /*argc*/, char ** /*argv*/)
 
     
     MovableEntity pacman(PACMAN, &map);
-    pacman.setPosition({ 1,1 });
+    
     
 
 

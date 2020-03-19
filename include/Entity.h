@@ -4,10 +4,11 @@
 #include "Board.h"
 
 
-
+/*Base class for object on the map*/
 class Entity 
 {
 public:
+	/*Constructor of map, takes as argument entityType like pacman or fruit and needs a pointer to the board on which the object will be placed*/
 	Entity(Type entityType, Board *tmpBoard) 
 	{
 		this->entityType.type = entityType;
@@ -17,11 +18,12 @@ public:
 		this->map = tmpBoard;
 	}
 	
-
+	/*Deconstructor of Entity*/
 	~Entity() 
 	{
 	}
-	
+
+	/*Return position of entity on the map*/
 	Position getPosition()
 	{
 		Position tmpPosition;
@@ -31,17 +33,20 @@ public:
 
 	}
 
+
+	/*Get the objectstruct*/
+	GameObjectStruct getEntityType() {
+		return entityType;
+	}
+
+protected:
+	/*Set position of entity*/
 	void setPosition(Position tmpPosition)
 	{
 		this->entityType.x = tmpPosition.x;
 		this->entityType.y = tmpPosition.y;
 	}
 
-	GameObjectStruct getEntityType() {
-		return entityType;
-	}
-
-protected:
 	Board* map;
 	GameObjectStruct entityType;
 private:

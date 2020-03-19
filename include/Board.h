@@ -1,18 +1,19 @@
 #pragma once
 #include<vector>
-
+/*A struct which defines the position of a item*/
 struct Position
 {
-    int x;
-    int y;
+    int x; //X position
+    int y; //Y position
 };
 
-
+/*This class defines how the board looks*/
 class Board
 {
     //function and variables that are publically available
 public:
 
+    /*Constructure will loads board.def file in map*/
     Board()
     {
         //load map
@@ -25,15 +26,16 @@ public:
         this->sizeBoardX = map[1].size();
     }
 
+    /*Deconstructor*/
     ~Board(){}
 
-    //return map
+    /*Return map*/
     std::vector<std::vector<int>> getBoard()
     {
         return this->map;
     }
 
-    //return if position contains a wall
+    /*Checks if a certain position on the map is all wall or not, defaults to true if position is outside of map*/
     bool isWall(Position tmpPosition)
     {
         //check if called value is within bounds
@@ -42,25 +44,26 @@ public:
             //check if wall exists
             if (map[tmpPosition.y][tmpPosition.x])
             {
-                return true;
+                return true; //return true if wall found
             }
             else
             {
-                return false;
+                return false; //return false if no wall found
             }
         }
         else
         {
-            return true;
+            return true; //default to wall found
         }
 
     }
 
-    //sizes of board
+    /*Return size of the map in x direction*/
     unsigned getBoardSizeX()
     {
         return this->sizeBoardX;
     }
+    /*Return size of the map in y direction*/
     unsigned getBoardSizeY()
     {
         return this->sizeBoardY;
@@ -68,8 +71,9 @@ public:
 
 
 private:
-    //map
-    unsigned sizeBoardX;
-    unsigned sizeBoardY;
-    std::vector<std::vector<int>> map;
+    
+    unsigned sizeBoardX; //Board size x direction
+    unsigned sizeBoardY; //Board size y direction
+
+    std::vector<std::vector<int>> map; //map in vector or vectors
 };
