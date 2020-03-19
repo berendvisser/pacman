@@ -11,6 +11,7 @@
 #include <iostream>
 
 #include "Board.h"
+#include "Entity.h"
 
 
 /// Callback function to update the game state.
@@ -21,10 +22,11 @@
 /// should use mutexes to access shared data.
 /// Read the documentation of SDL_AddTimer for more information and for tips
 /// regarding multithreading issues.
-Uint32 gameUpdate(Uint32 interval, void * /*param*/)
+Uint32 gameUpdate(Uint32 interval, void * param)
 {
     // Do game loop update here
-    std::cout << interval << std::endl;
+    unsigned* tmpTick = static_cast<unsigned*>(param);
+    (*tmpTick)++;    
     return interval;
 }
 
@@ -34,8 +36,8 @@ int main(int /*argc*/, char ** /*argv*/)
     
     Board map;
 
-
-
+    unsigned previousTicks = 0;
+    unsigned currentTicks = 0;
     
 
     // Create a new ui object
@@ -43,20 +45,12 @@ int main(int /*argc*/, char ** /*argv*/)
 
     // Start timer for game update, call this function every 100 ms.
     SDL_TimerID timer_id =
-        SDL_AddTimer(100, gameUpdate, static_cast<void *>(nullptr));
+        SDL_AddTimer(200, gameUpdate, static_cast<void*>( &currentTicks));
 
-    // Example object, this can be removed later
-    GameObjectStruct pacman;
-    pacman.x = 0;
-    pacman.y = 8;
-    pacman.type = PACMAN;
-    pacman.dir = UP;
+    
+    Entity pacman(PACMAN);
+    pacman.setPosition(2, 2);
 
-    GameObjectStruct ghost;
-    ghost.x = 2;
-    ghost.y = 1;
-    ghost.dir = DOWN;
-    ghost.type = BLINKY;
 
     // Call game init code here
 
@@ -78,16 +72,16 @@ int main(int /*argc*/, char ** /*argv*/)
             if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
                 case SDLK_LEFT: 
-                    pacman.dir = LEFT;
+                    
                     break;
                 case SDLK_RIGHT: 
-                    pacman.dir = RIGHT;
+                    
                     break;
                 case SDLK_UP:
-                    pacman.dir = UP;
+                    
                     break;
                 case SDLK_DOWN:
-                    pacman.dir = DOWN;
+                    
                     break;
                 case SDLK_ESCAPE:
                     quit = true;
@@ -103,17 +97,21 @@ int main(int /*argc*/, char ** /*argv*/)
         ui.setLives(1); // <-- Pass correct value to the setter
 
         // Render the scene
-        std::vector<GameObjectStruct> objects = {pacman};
+        
 
-        objects.push_back(ghost);
+        
 
-
+        std::vector<GameObjectStruct> objects = { pacman.getEntityType() };
 
         ui.update(objects);
 
         while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
             // ... do work until timeout has elapsed
+            
+            std::vector<GameObjectStruct> objects = { pacman.getEntityType() };
+
             ui.update(objects);
+
 
 
 
