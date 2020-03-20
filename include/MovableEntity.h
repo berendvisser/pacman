@@ -3,34 +3,42 @@
 
 class MovableEntity: public Entity
 {
+//accessable outside of class
 public:
-	MovableEntity(Type EntityType, Board* tmpBoard) : Entity(EntityType, tmpBoard)
+	/*Constructor takes entity type and board as parameters*/
+	MovableEntity(Type EntityType, Board* tmpBoard) : Entity(EntityType)
 	{
-		this->setPosition({ 1,1 });
+		
+		this->map = tmpBoard; //Set map pointer to tmpBoard
 	}
 
-	/*Moves entity in current directio*/
+	/*Moves entity in current direction*/
 	void moveEntity()
 	{
-		Position tmpPosition = getNextPosition(this->getPosition(), this->entityType.dir);
+		Position tmpPosition = getNextPosition(this->getPosition(), this->entityType.dir); //Get next position using current direction
 		
 
 
-		if (!this->map->isWall(tmpPosition))
-		{
-			this->setPosition(tmpPosition);
-		}
-	}
-
-	void setDirection (Direction dir)
-	{
-		Position tmpNextPosition = getNextPosition(this->getPosition(), dir);
-
-		if (this->map->isWall(tmpNextPosition))
+		if (this->map->isWall(tmpPosition)) //check if new position is a wall
 		{
 			
 		}
-		else
+		else //set new position
+		{
+			this->setPosition(tmpPosition);// set new position
+		}
+	}
+
+	/*Sets direction of movable entity if possible*/
+	void setDirection (Direction dir)
+	{
+		Position tmpNextPosition = getNextPosition(this->getPosition(), dir); //get next position with the new direction
+
+		if (this->map->isWall(tmpNextPosition)) //check if new position is wall
+		{
+			
+		}
+		else //set new direction
 		{
 			this->entityType.dir = dir;
 		}
@@ -41,15 +49,21 @@ public:
 	/*Return current direction*/
 	Direction getDirection()
 	{
-		return this->entityType.dir;
+		return this->entityType.dir;//return current direction
 	}
-
+	
+	/*Get next position*/
 	Position getNextPosition(Position curPos, Direction curDir)
 	{
-		unsigned boardSizeX = this->map->getBoardSizeX();
-		unsigned boardSizeY = this->map->getBoardSizeY();;
-		curPos.x += boardSizeX;
+		
+		unsigned boardSizeX = this->map->getBoardSizeX();//get boardsize X
+		unsigned boardSizeY = this->map->getBoardSizeY();//get boardsize y
+
+		/*offset current position by boardsize */
+		curPos.x += boardSizeX; 
 		curPos.y += boardSizeY;
+		
+		/*get next position using current position and direction*/
 		switch (curDir)
 		{
 		case UP:
@@ -69,10 +83,14 @@ public:
 			break;
 		}
 
+		/*remove offset to allow for teleport from onside to the other on map*/
 		curPos.x %= boardSizeX;
 		curPos.y %= boardSizeY;
 
 		return curPos;
 
 	}
+//should only be accessed by derived classes
+protected:
+	Board* map;
 };

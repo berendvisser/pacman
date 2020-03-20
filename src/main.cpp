@@ -63,6 +63,8 @@ int main(int /*argc*/, char ** /*argv*/)
 
     
     MovableEntity pacman(PACMAN, &map);
+    Entity dot(DOT);
+
     
     
 
