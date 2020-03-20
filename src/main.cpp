@@ -63,7 +63,9 @@ int main(int /*argc*/, char ** /*argv*/)
 
     
     MovableEntity pacman(PACMAN, &map);
-    Entity dot(DOT);
+    pacman.setPosition({ 1, 1 });
+    Entity dot_1(DOT);
+    dot_1.setPosition({ 1, 2 });
 
     
     
@@ -71,7 +73,7 @@ int main(int /*argc*/, char ** /*argv*/)
 
     // Call game init code here
 
-
+    int score = 0;
     bool quit = false;
     while (!quit) {
         // set timeout to limit frame rate
@@ -108,21 +110,14 @@ int main(int /*argc*/, char ** /*argv*/)
             }
         }
 
-        // Set the score
-        ui.setScore(1); // <-- Pass correct value to the setter
 
-        // Set the amount of lives
-        ui.setLives(1); // <-- Pass correct value to the setter
-
-        // Render the scene
-        
 
         
 
         
 
        
-
+        
         while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
             // ... do work until timeout has elapsed
 
@@ -130,8 +125,21 @@ int main(int /*argc*/, char ** /*argv*/)
             {
                 pacman.setDirection(inputDirTick);
                 pacman.moveEntity();
-                std::vector<GameObjectStruct> objects = { pacman.getEntityType() };                                                      
+
+                if (pacman.hasCollided(dot_1)) {
+                    score++;                    
+                }
+
+                
+                
+                
+                
+                
+                
+                std::vector<GameObjectStruct> objects = { dot_1.getEntityType(), pacman.getEntityType() };
                 ui.update(objects);
+                ui.setScore(score);
+                
                 previousTicks = currentTicks;
             }
 

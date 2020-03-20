@@ -5,6 +5,12 @@ struct Position
 {
     int x; //X position
     int y; //Y position
+    
+    bool operator==(const Position& other) const //overload == operator
+    {
+        return x == other.x && y == other.y;
+    }
+    
 };
 
 /*This class defines how the board looks*/

@@ -44,6 +44,8 @@ public:
 		this->entityType.y = tmpPosition.y; //set y position of entity
 	}
 
+
+
 // members can be accessed by subclasses
 protected:
 	GameObjectStruct entityType; //gameobject type of entity

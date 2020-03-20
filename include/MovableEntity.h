@@ -90,6 +90,20 @@ public:
 		return curPos;
 
 	}
+
+	/*Checks if current entity has a collision with an other entity*/
+	bool hasCollided(Entity tmpEntity)
+	{
+		
+		if (this->getPosition() == tmpEntity.getPosition())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 //should only be accessed by derived classes
 protected:
 	Board* map;

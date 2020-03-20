@@ -53,5 +53,8 @@
     <ClInclude Include="include\GameObjectStruct.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Eatable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
