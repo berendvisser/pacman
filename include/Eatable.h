@@ -3,6 +3,7 @@
 
 class Eatable : public Entity
 {
+public:
 	/*Constructor*/
 	Eatable(Type EatableType) :Entity(EatableType)
 	{

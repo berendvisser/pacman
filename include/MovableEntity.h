@@ -92,10 +92,13 @@ public:
 	}
 
 	/*Checks if current entity has a collision with an other entity*/
-	bool hasCollided(Entity tmpEntity)
+	bool hasCollided(Entity *tmpEntity)
 	{
-		
-		if (this->getPosition() == tmpEntity.getPosition())
+		if (tmpEntity == NULL)
+		{
+			return false;
+		}
+		if (this->getPosition() == tmpEntity->getPosition())
 		{
 			return true;
 		}

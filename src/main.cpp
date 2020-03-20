@@ -13,6 +13,7 @@
 #include "Board.h"
 #include "Entity.h"
 #include "MovableEntity.h"
+#include "Eatable.h"
 
 
 /// Callback function to update the game state.
@@ -64,8 +65,12 @@ int main(int /*argc*/, char ** /*argv*/)
     
     MovableEntity pacman(PACMAN, &map);
     pacman.setPosition({ 1, 1 });
-    Entity dot_1(DOT);
-    dot_1.setPosition({ 1, 2 });
+
+    std::vector<Eatable*> dots;
+
+    dots.push_back(new Eatable(DOT)); // allocate on heap, to make compatibale with ghost and fruit
+
+    dots[0]->setPosition({ 1,5 });
 
     
     
@@ -126,7 +131,10 @@ int main(int /*argc*/, char ** /*argv*/)
                 pacman.setDirection(inputDirTick);
                 pacman.moveEntity();
 
-                if (pacman.hasCollided(dot_1)) {
+                if (!dots.empty() && pacman.hasCollided(dots.back())) 
+                {
+                    delete dots.back();
+                    
                     score++;                    
                 }
 
@@ -136,7 +144,7 @@ int main(int /*argc*/, char ** /*argv*/)
                 
                 
                 
-                std::vector<GameObjectStruct> objects = { dot_1.getEntityType(), pacman.getEntityType() };
+                std::vector<GameObjectStruct> objects = { dots[0]->getEntityType(), pacman.getEntityType() };
                 ui.update(objects);
                 ui.setScore(score);
                 
