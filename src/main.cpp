@@ -16,6 +16,13 @@
 #include "Eatable.h"
 
 
+
+
+
+
+void checkCollion(MovableEntity& tmpMovable, std::vector<Eatable*>& tmpEatableList, int& score);
+
+
 /// Callback function to update the game state.
 ///
 /// This function is called by an SDL timer at regular intervals.
@@ -68,13 +75,19 @@ int main(int /*argc*/, char ** /*argv*/)
 
     std::vector<Eatable*> dots;
 
-    dots.push_back(new Eatable(DOT)); // allocate on heap, to make compatibale with ghost and fruit
-
-    dots[0]->setPosition({ 1,5 });
-
-    
-    
-
+    //Fills board with dots
+    for (int y = 0; y < map.getBoardSizeY(); y++)
+    {
+        for (int x = 0; x < map.getBoardSizeX(); x++)
+        {
+            if (!map.isWall({ x,y }))
+            {
+                dots.push_back(new Eatable(DOT)); // allocate on heap, to make compatibale with ghost and fruit
+                dots.back()->setPosition({ x,y });
+            }
+            
+        }
+    }
 
     // Call game init code here
 
@@ -125,26 +138,27 @@ int main(int /*argc*/, char ** /*argv*/)
         
         while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
             // ... do work until timeout has elapsed
+            std::vector<GameObjectStruct> objects;
 
             if (currentTicks > previousTicks)
             {
                 pacman.setDirection(inputDirTick);
                 pacman.moveEntity();
 
-                if (!dots.empty() && pacman.hasCollided(dots.back())) 
-                {
-                    delete dots.back();
-                    
-                    score++;                    
-                }
+
+
+                checkCollion(pacman, dots, score);
+                
+                
+
 
                 
-                
-                
-                
-                
-                
-                std::vector<GameObjectStruct> objects = { dots[0]->getEntityType(), pacman.getEntityType() };
+                for (int i = 0; i < dots.size(); i++)
+                {
+                    objects.push_back(dots[i]->getEntityType());
+                }
+                objects.push_back(pacman.getEntityType());
+
                 ui.update(objects);
                 ui.setScore(score);
                 
@@ -161,4 +175,19 @@ int main(int /*argc*/, char ** /*argv*/)
     SDL_RemoveTimer(timer_id);
 
     return 0;
+}
+
+/*Function checks if movable entity collided with eatables*/
+void checkCollion(MovableEntity& tmpMovable, std::vector<Eatable*>& tmpEatableList, int& score)
+{
+    for (int i = 0; i < tmpEatableList.size(); i++)
+    {
+        if (tmpMovable.hasCollided(tmpEatableList[i]))
+        {
+            score++;
+            delete tmpEatableList[i];
+            tmpEatableList.erase(tmpEatableList.begin() + i);
+        }
+
+    }
 }
