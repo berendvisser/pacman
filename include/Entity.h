@@ -9,6 +9,9 @@ class Entity
 {
 public:
 	/*Constructor of map, takes as argument entityType like pacman or fruit and needs a pointer to the board on which the object will be placed*/
+	
+	Entity(){}
+	
 	Entity(Type entityType) 
 	{
 		this->entityType.type = entityType;	//set type of entity

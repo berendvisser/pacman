@@ -113,6 +113,7 @@
     <ClInclude Include="include\Eatable.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\GameObjectStruct.h" />
+    <ClInclude Include="include\Ghost.h" />
     <ClInclude Include="include\MovableEntity.h" />
     <ClInclude Include="include\Pacman.h" />
     <ClInclude Include="include\UI.h" />

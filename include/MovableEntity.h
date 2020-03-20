@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity.h"
 
-class MovableEntity: public Entity
+class MovableEntity: virtual public  Entity
 {
 //accessable outside of class
 public:

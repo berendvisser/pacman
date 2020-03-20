@@ -14,6 +14,7 @@
 #include "Entity.h"
 #include "MovableEntity.h"
 #include "Eatable.h"
+#include "Ghost.h"
 
 
 
@@ -69,7 +70,9 @@ int main(int /*argc*/, char ** /*argv*/)
     SDL_TimerID timer_id =
         SDL_AddTimer(120, gameUpdate, parameters);
 
-    
+
+
+    //add pacman 
     MovableEntity pacman(PACMAN, &map);
     pacman.setPosition({ 1, 1 });
 
@@ -88,6 +91,16 @@ int main(int /*argc*/, char ** /*argv*/)
             
         }
     }
+    //init ghosts
+    Ghost inky(INKY, &map);
+    Ghost pinky(PINKY, &map);
+    Ghost blinky(BLINKY, &map);
+    Ghost clyde(CLYDE, &map);
+
+    inky.setPosition({ 12,13 });
+    pinky.setPosition({ 13,13 });
+    blinky.setPosition({ 14,13 });
+    clyde.setPosition({ 15,13 });
 
     // Call game init code here
 
@@ -142,23 +155,23 @@ int main(int /*argc*/, char ** /*argv*/)
 
             if (currentTicks > previousTicks)
             {
-                pacman.setDirection(inputDirTick);
-                pacman.moveEntity();
+                pacman.setDirection(inputDirTick);//set new input direction
+                pacman.moveEntity();//move pacman
+                //inky.moveEntity();
 
 
-
-                checkCollion(pacman, dots, score);
+                checkCollion(pacman, dots, score); //check if pacman collided with dots
                 
                 
 
 
-                
+                //add dots to render list
                 for (int i = 0; i < dots.size(); i++)
                 {
                     objects.push_back(dots[i]->getEntityType());
                 }
                 objects.push_back(pacman.getEntityType());
-
+                objects.push_back(inky.getEntityType());
                 ui.update(objects);
                 ui.setScore(score);
                 
@@ -184,7 +197,7 @@ void checkCollion(MovableEntity& tmpMovable, std::vector<Eatable*>& tmpEatableLi
     {
         if (tmpMovable.hasCollided(tmpEatableList[i]))
         {
-            score++;
+            score += tmpEatableList[i]->getScoreOncollision();
             delete tmpEatableList[i];
             tmpEatableList.erase(tmpEatableList.begin() + i);
         }

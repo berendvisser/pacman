@@ -56,5 +56,8 @@
     <ClInclude Include="include\Eatable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Ghost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

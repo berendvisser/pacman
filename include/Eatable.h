@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity.h"
 
-class Eatable : public Entity
+class Eatable : virtual public  Entity
 {
 public:
 	/*Constructor*/
