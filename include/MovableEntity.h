@@ -15,7 +15,7 @@ public:
 	/*Moves entity in current direction*/
 	void moveEntity()
 	{
-		Position tmpPosition = getNextPosition(this->getPosition(), this->entityType.dir); //Get next position using current direction
+		Position tmpPosition = getNextPosition(this->entityType.dir); //Get next position using current direction
 		
 
 
@@ -29,18 +29,19 @@ public:
 		}
 	}
 
-	/*Sets direction of movable entity if possible*/
-	void setDirection (Direction dir)
+	/*Sets direction of movable entity if possible return true if succesfull*/
+	bool setDirection (Direction dir)
 	{
-		Position tmpNextPosition = getNextPosition(this->getPosition(), dir); //get next position with the new direction
+		Position tmpNextPosition = this->getNextPosition(dir); //get next position with the new direction
 
 		if (this->map->isWall(tmpNextPosition)) //check if new position is wall
 		{
-			
+			return false;
 		}
 		else //set new direction
 		{
 			this->entityType.dir = dir;
+			return true;
 		}
 		
 		
@@ -53,9 +54,9 @@ public:
 	}
 	
 	/*Get next position*/
-	Position getNextPosition(Position curPos, Direction curDir)
+	Position getNextPosition( Direction curDir)
 	{
-		
+		Position curPos = this->getPosition();
 		unsigned boardSizeX = this->map->getBoardSizeX();//get boardsize X
 		unsigned boardSizeY = this->map->getBoardSizeY();//get boardsize y
 

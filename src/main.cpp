@@ -21,7 +21,7 @@
 
 
 
-void checkCollion(MovableEntity& tmpMovable, std::vector<Eatable*>& tmpEatableList, int& score);
+void checkCollion(MovableEntity& tmpMovable, std::vector<Eatable*>& tmpEatableList, int& score, unsigned &tmpLives);
 
 
 /// Callback function to update the game state.
@@ -53,6 +53,8 @@ int main(int /*argc*/, char ** /*argv*/)
     Direction inputDirKey = RIGHT;
     Direction inputDirTick = RIGHT;
 
+    unsigned lives = 5;
+
     unsigned previousTicks = 0;
     unsigned currentTicks = 1;
     
@@ -63,7 +65,7 @@ int main(int /*argc*/, char ** /*argv*/)
 
     // Start timer for game update, call this function every 100 ms.
     SDL_TimerID timer_id =
-        SDL_AddTimer(120, gameUpdate, parameters);
+        SDL_AddTimer(200, gameUpdate, parameters);
 
 
 
@@ -86,6 +88,7 @@ int main(int /*argc*/, char ** /*argv*/)
             
         }
     }
+
     //init ghosts
     Ghost inky(INKY, &map);
     Ghost pinky(PINKY, &map);
@@ -99,10 +102,11 @@ int main(int /*argc*/, char ** /*argv*/)
     blinky.setPosition({ 14,13 });
     clyde.setPosition({ 15,13 });
 
-    // Call game init code here
+    
 
     int score = 0;
     bool quit = false;
+    
     while (!quit) {
         // set timeout to limit frame rate
         Uint32 timeout = SDL_GetTicks() + 20;
@@ -148,47 +152,76 @@ int main(int /*argc*/, char ** /*argv*/)
         
         while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
             // ... do work until timeout has elapsed
-            
-            
-            
             std::vector<GameObjectStruct> objects;
+            
+            
+            
 
             if (currentTicks > previousTicks)
             {
-                pacman.setDirection(inputDirTick);//set new input direction
-                pacman.moveEntity(); //move pacman
-                //inky.moveEntity();
-
-
-                checkCollion(pacman, dots, score); //check if pacman collided with dots
-                checkCollion(pacman, ghosts, score); 
                 
 
 
+                pacman.setDirection(inputDirTick);//set new input direction
+                pacman.moveEntity(); //move pacman
+                checkCollion(pacman, dots, score, lives); //check if pacman collided with dots
+                checkCollion(pacman, ghosts, score, lives); //check if pacman collided with ghosts
+
+
+                
+                //move ghosts
+                pinky.setNewRandomDirection();
+                pinky.moveEntity();
+                blinky.setNewRandomDirection();
+                blinky.moveEntity();
+                inky.setNewRandomDirection();
+                inky.moveEntity();
+                clyde.setNewRandomDirection();
+                clyde.moveEntity();
+
+                checkCollion(pacman, dots, score, lives); //check if pacman collided with dots
+                checkCollion(pacman, ghosts, score, lives); //check if pacman collided with ghosts
+
+
                 //add dots to render list
+                if (dots.size() == 0)
+                {
+                    std::cout << "Won game!\n";
+                    quit = true;
+                }
                 for (int i = 0; i < dots.size(); i++)
                 {
                     objects.push_back(dots[i]->getEntityType());
                 }
-
+                //add ghosts to render list
                 for (int i = 0; i <ghosts.size(); i++)
                 {
                     objects.push_back(ghosts[i]->getEntityType());
                 }
 
+                //add pacman to render list
                 objects.push_back(pacman.getEntityType());
                 
-                ui.update(objects);
+                //set score and lives
+                ui.setLives(lives);                
                 ui.setScore(score);
                 
-                previousTicks = currentTicks;
+                //update map
+                ui.update(objects);
+                
+                previousTicks = currentTicks; //update amount of previous ticks
+            }
+
+            if (!lives)
+            {
+                quit = true; //exit game
+                std::cout << "Game lost, scored " << score << " points!\n"; //print score
             }
 
 
 
-
-
         }
+
     }
 
     SDL_RemoveTimer(timer_id);
@@ -197,7 +230,7 @@ int main(int /*argc*/, char ** /*argv*/)
 }
 
 /*Function checks if movable entity collided with eatables*/
-void checkCollion(MovableEntity& tmpMovable, std::vector<Eatable*>& tmpEatableList, int& score)
+void checkCollion(MovableEntity &tmpMovable, std::vector<Eatable*> &tmpEatableList, int& score, unsigned &tmpLives)
 {
     for (int i = 0; i < tmpEatableList.size(); i++)
     {
@@ -212,8 +245,12 @@ void checkCollion(MovableEntity& tmpMovable, std::vector<Eatable*>& tmpEatableLi
             }
             else
             {
-                score = 0;
+                tmpLives--;
                 tmpMovable.setPosition({ 1,1 });
+                for (int j = 0; j < tmpEatableList.size(); j++)
+                {
+                    static_cast<Ghost*>(tmpEatableList[j])->setPosition({ 12 + j,13 });
+                }
             }
         }
 
