@@ -15,7 +15,6 @@
 #include "MovableEntity.h"
 #include "Eatable.h"
 #include "Ghost.h"
-#include "Energizers.h"
 #include "Pacman.h"
 #include "Fruit.h"
 
@@ -98,8 +97,10 @@ int main(int /*argc*/, char ** /*argv*/)
     std::vector<Eatable*> energizers;
     for (int i = 0; i < 4; i++)
     {
-        energizers.push_back(new Energizer(ENERGIZER));
+        energizers.push_back(new Eatable(ENERGIZER));
+        energizers.back()->setScoreOnCollision(0);
     }
+
     energizers[0]->setPosition({ 1, 1 });
     energizers[1]->setPosition({ 1, 25 });
     energizers[2]->setPosition({ 26, 1 });
