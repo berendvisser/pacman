@@ -6,7 +6,7 @@
 #pragma once
 #include "Eatable.h"
 
-
+/*Default constructor*/
 Eatable::Eatable(){}
 
 /*constructor*/

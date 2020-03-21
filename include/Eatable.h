@@ -10,7 +10,7 @@ class Eatable : virtual public  Entity
 {
 public:
 	/*Constructor*/
-	Eatable(){}
+	Eatable();
 
 	/*constructor*/
 	Eatable(Type EatableType);
