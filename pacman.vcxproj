@@ -111,6 +111,7 @@
   <ItemGroup>
     <ClInclude Include="include\Board.h" />
     <ClInclude Include="include\Eatable.h" />
+    <ClInclude Include="include\Energizers.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\GameObjectStruct.h" />
     <ClInclude Include="include\Ghost.h" />

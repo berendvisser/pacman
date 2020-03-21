@@ -8,13 +8,10 @@
 class Ghost : public MovableEntity, public Eatable
 {
 public:
-	
-
-
 	/*Constructor*/
 	Ghost(Type ghostType, Board* tmpBoard) :MovableEntity(ghostType, tmpBoard), Eatable(ghostType), Entity(ghostType)
 	{
-		this->setScoreOnCollision(-1);
+		this->setScoreOnCollision(-1); //set score on collision
 		
 	}
 
@@ -23,55 +20,48 @@ public:
 
 
 
-	void setNewRandomDirection()
+	void setNewDirection()
 	{
-		Position testPosition;
-		unsigned freeDirections = 0;
+		Position freePosition; //free position with respect to current spot
+		unsigned freeDirections = 0; //number of directions to choose from
 
-		for (unsigned i= 0; i < 4; i++)
+		for (unsigned i= 0; i < 4; i++)//loop to check all four direciton around current spot
 		{
-			testPosition = this->getNextPosition(static_cast<Direction>(i));
-			if (!map->isWall(testPosition))
+			freePosition = this->getNextPosition(static_cast<Direction>(i)); //check first direction
+			
+			if (!map->isWall(freePosition))//check if there is not a wall in current position
 			{
-				freeDirections++;
+				freeDirections++; //increase number of free positions if no wall is found
 				
 			}
 		}
 
-		if (freeDirections != 2)
+		if (freeDirections != 2) //if 1, 3 or 4 directions are possible 
 		{
-			this->setRandomDirection();
+			this->setRandomDirection(); //pick a random direction out of the possible directions
 		}
-		else
+		else //if only two directions are possible
 		{	
-			Direction OppositeDir = this->getOppositeDirection();
-			this->setRandomDirection();
+			Direction OppositeDir = this->getOppositeDirection(); //get direction opposite to current direction
+			this->setRandomDirection(); //pick random direction
 
-			while (this->getDirection() == OppositeDir)
+			while (this->getDirection() == OppositeDir) //keep checking for a new direction that is not opposite to current direction
 			{
-				this->setRandomDirection();
+				this->setRandomDirection(); //set new random direction
 			}
 			
 		}
 
 
 	}
-	/*returns true is new direction is opposite to current direction*/
-	void setRandomDirection()
-	{	
-		
-		bool x = this->setDirection(static_cast<Direction>(std::rand() % 4));
-		while (!x)
-		{
-			x = this->setDirection(static_cast<Direction>(std::rand() % 4));
-			void;
-		}
-	}
+
 
 	/*Return opposite direction of Ghost*/
 	Direction getOppositeDirection()
 	{
-		switch (this->getDirection()) {
+		switch (this->getDirection()) //switch on current direction
+		{
+			//return inverse
 		case UP:
 			return DOWN;
 			break;
@@ -89,6 +79,16 @@ public:
 				
 	}
 private:
+	/*sets new random position*/
+	void setRandomDirection()
+	{
+
+		//keep setting new random direction until new direction is valid
+		while (!this->setDirection(static_cast<Direction>(std::rand() % 4)))
+		{
+		}
+	}
+
 	 
 	
 

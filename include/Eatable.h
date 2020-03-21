@@ -22,9 +22,10 @@ public:
 		scoreOnCollision = newScore; //set new score
 	}
 
+	/*Returns score when collided with*/
 	int getScoreOncollision()
 	{
-		return scoreOnCollision;
+		return scoreOnCollision; 
 	}
 
 private:

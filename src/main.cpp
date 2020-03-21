@@ -15,6 +15,7 @@
 #include "MovableEntity.h"
 #include "Eatable.h"
 #include "Ghost.h"
+#include "Energizers.h"
 
 
 
@@ -74,6 +75,10 @@ int main(int /*argc*/, char ** /*argv*/)
     pacman.setPosition({ 1, 1 });
 
     std::vector<Eatable*> dots;
+
+    //Add energizers
+    std::vector<Eatable*> energizers;
+    energizers.push_back(new Energizer(ENERGIZER));
 
     //Fills board with dots
     for (int y = 0; y < map.getBoardSizeY(); y++)
@@ -170,17 +175,17 @@ int main(int /*argc*/, char ** /*argv*/)
 
                 
                 //move ghosts
-                pinky.setNewRandomDirection();
+                pinky.setNewDirection();
                 pinky.moveEntity();
-                blinky.setNewRandomDirection();
+                blinky.setNewDirection();
                 blinky.moveEntity();
-                inky.setNewRandomDirection();
+                inky.setNewDirection();
                 inky.moveEntity();
-                clyde.setNewRandomDirection();
+                clyde.setNewDirection();
                 clyde.moveEntity();
 
-                checkCollion(pacman, dots, score, lives); //check if pacman collided with dots
-                checkCollion(pacman, ghosts, score, lives); //check if pacman collided with ghosts
+                               
+                checkCollion(pacman, ghosts, score, lives); //check again if pacman collided with ghosts
 
 
                 //add dots to render list
@@ -189,10 +194,13 @@ int main(int /*argc*/, char ** /*argv*/)
                     std::cout << "Won game!\n";
                     quit = true;
                 }
+
+                //add dots to renderlist
                 for (int i = 0; i < dots.size(); i++)
                 {
                     objects.push_back(dots[i]->getEntityType());
                 }
+
                 //add ghosts to render list
                 for (int i = 0; i <ghosts.size(); i++)
                 {
