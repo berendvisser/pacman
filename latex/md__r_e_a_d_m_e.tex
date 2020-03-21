@@ -1,0 +1,38 @@
+A small starter kit for developing your own \doxyref{Pacman}{p.}{class_pacman} game.
+
+Only external dependency\+: {\texttt{ S\+DL}} version 2.
+
+Supports Windows, Linux, mac\+OS.\doxysection{C++ compilers and S\+D\+L2}\label{md__r_e_a_d_m_e_autotoc_md3}
+\doxysubsection{Linux}\label{md__r_e_a_d_m_e_autotoc_md4}
+Install {\ttfamily gcc} or {\ttfamily clang}. One of the two is probably already installed. Install S\+D\+L2-\/dev (on Ubuntu, the package is called {\ttfamily libsdl2-\/dev}). Point {\ttfamily -\/I /opt/local/include -\/L /opt/local/lib} in {\ttfamily compile\+\_\+and\+\_\+run\+\_\+pacman.\+sh} to the location of the S\+D\+L2 header files and library binaries.\doxysubsection{mac\+OS}\label{md__r_e_a_d_m_e_autotoc_md5}
+Install X\+Code from the App Store. Open the terminal and run {\ttfamily xcode-\/select -\/-\/install}. You should now have the program {\ttfamily clang++}\+: that\textquotesingle{}s your C++ compiler!
+
+Download the development libraries of S\+D\+L2 from their {\texttt{ website}} (it\textquotesingle{}s a {\ttfamily .dmg} file). Open the dmg and copy the {\ttfamily S\+D\+L2.\+framework} to {\ttfamily /\+Library/\+Frameworks} (to go directly to a path in Finder, press command+shift+g). The framework may need to be signed. To sign the framework (is this necessary?), open up a terminal, go to {\ttfamily /\+Library/\+Frameworks/\+S\+D\+L2.framework/}, and sign the framework using the command {\ttfamily codesign -\/f -\/s -\/ S\+D\+L2}.
+
+Make sure that the directories used in the {\ttfamily compile\+\_\+and\+\_\+run\+\_\+pacman\+\_\+osx.\+sh} script match with the location of your S\+D\+L2 installation.
+
+If you get errors like `fatal error\+: \textquotesingle{}S\+D\+L2/\+S\+D\+L.\+h' file not found{\ttfamily , you probably have to run}xcode-\/select --install\`{} again (may happen after updating X\+Code).\doxysubsection{Windows}\label{md__r_e_a_d_m_e_autotoc_md6}
+Download Visual Studio Community (it\textquotesingle{}s free). During installation, select for \char`\"{}workload\char`\"{} the \char`\"{}\+Desktop development with C++\char`\"{}; that should install all needed components.
+
+Create a Visual Studio project from existing source and point it to this pacman\+Lib directory. Add the {\ttfamily include} directory to the \char`\"{}\+Additional Include Directories\char`\"{}. (Note\+: it\textquotesingle{}s smart to apply these settings to \char`\"{}\+All Configurations\char`\"{} in the Configurations dropdown box...)
+
+Download the development libraries (for Visual C++!) of S\+D\+L2 from their {\texttt{ website}}. You can unzip the binary package anywhere, but the provided batch script assumes you have unpacked it in the {\ttfamily C\+:\textbackslash{}S\+D\+L2\textbackslash{}} directory (i.\+e. such that you have e.\+g. the {\ttfamily C\+:\textbackslash{}S\+D\+L2\textbackslash{}include} dir). Inside the {\ttfamily include} directory, create a subdir {\ttfamily S\+D\+L2} and move all S\+D\+L2 header files into this {\ttfamily include\textbackslash{}S\+D\+L2\textbackslash{}} dir. Add the include directory (that contains this {\ttfamily S\+D\+L2}) directory to the \char`\"{}\+Additional Include Directories\char`\"{} of your Visual Studio project. Add the S\+D\+L2 {\ttfamily lib\textbackslash{}x86} (or {\ttfamily lib\textbackslash{}x64} when using the 64bit compiler) directory to the \char`\"{}\+Additional Library Directories\char`\"{}, and add {\ttfamily S\+D\+L2.\+lib} and {\ttfamily S\+D\+L2main.\+lib} to the \char`\"{}\+Additional Dependencies\char`\"{} setting under Linker-\/$>$Input. Now you should be able to build (F7) the pacman program. Finally, copy the {\ttfamily lib\textbackslash{}x86\textbackslash{}S\+D\+L2.\+dll} file (or {\ttfamily lib\textbackslash{}x64\textbackslash{}S\+D\+L2.\+dll}) to your project (it\textquotesingle{}s needed when running pacman.\+exe). Hit the play button and you should see the pacman maze! If anything is unclear\+: use Google, and look e.\+g. here\+: {\texttt{ http\+://gigi.\+nullneuron.\+net/gigilabs/setting-\/up-\/sdl2-\/with-\/visual-\/studio-\/2015/}}.
+
+You should also be able to build {\ttfamily pacman.\+exe} from the commandline. Use the {\ttfamily compile\+\_\+and\+\_\+run\+\_\+pacman.\+bat} script for that. You should run that script from the {\ttfamily x64 Native Tools Command Prompt for V\+S2017} terminal (when installing Visual Studio, it creates a shortcut for that in the Windows launch menu).\doxysection{Tooling support}\label{md__r_e_a_d_m_e_autotoc_md7}
+A few extra files provide support for the following C++ tooling\+:
+\begin{DoxyItemize}
+\item {\ttfamily compile\+\_\+and\+\_\+run\+\_\+pacman$\ast$}\+: commandline scripts that invoke the compiler to build the pacman program and run it. You may need to modify them a bit to use the correct compiler and to locate the S\+D\+L2 library files.
+\item {\ttfamily \+\_\+clang-\/format}\+: {\texttt{ clang-\/format}}. Many popular editors and I\+D\+Es support clang-\/format through e.\+g. plugins.
+\item {\ttfamily Doxyfile}\+: {\texttt{ doxygen}}. The {\ttfamily Doxyfile} configures Doxygen to use Graphviz to generate e.\+g. class inheritance diagrams. The Graphviz software and installation instructions can be found on {\texttt{ the Graphviz website}}.
+\end{DoxyItemize}\doxysection{Directory structure}\label{md__r_e_a_d_m_e_autotoc_md8}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{├── include/    The header files of your project}
+\DoxyCodeLine{├── resources/  Media files, such as the bitmap with pacman images}
+\DoxyCodeLine{├── src/}
+\DoxyCodeLine{│   ├── your\_code\_here.cpp}
+\DoxyCodeLine{│   └── ...}
+\DoxyCodeLine{└── visualstudio/  Visual Studio project files that might work for you (copy to top directory before use)}
+\end{DoxyCode}
+\doxysection{License}\label{md__r_e_a_d_m_e_autotoc_md9}
+All files are in the public domain. Relicense at your own convenience. 

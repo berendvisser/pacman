@@ -1,0 +1,102 @@
+\doxysection{UI Class Reference}
+\label{class_u_i}\index{UI@{UI}}
+
+
+{\ttfamily \#include $<$U\+I.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ UI} (std\+::vector$<$ std\+::vector$<$ int $>$$>$ map)
+\item 
+\mbox{\label{class_u_i_a86ccaa85738708456b67cc3aa371d1f0}} 
+{\bfseries UI} (const \textbf{ UI} \&)=delete
+\item 
+\mbox{\label{class_u_i_a609614a1eb4c273579dba67d85cd67ec}} 
+{\bfseries UI} (const \textbf{ UI} \&\&)=delete
+\item 
+\mbox{\label{class_u_i_a219476a8bc510f597f7b40cb1b541d1e}} 
+\textbf{ UI} \& {\bfseries operator=} (const \textbf{ UI} \&)=delete
+\item 
+\mbox{\label{class_u_i_a1b23d0c64c7cbb3d143d90ec532a7ccd}} 
+\textbf{ $\sim$\+UI} ()
+\begin{DoxyCompactList}\small\item\em Destructor fully de-\/initializes the \doxyref{UI}{p.}{class_u_i}, including closing the main window. \end{DoxyCompactList}\item 
+void \textbf{ set\+Score} (int score)
+\item 
+void \textbf{ set\+Lives} (int lives)
+\item 
+void \textbf{ update} (std\+::vector$<$ \textbf{ Game\+Object\+Struct} $>$ objects)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Description of \doxyref{UI}{p.}{class_u_i} class 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\label{class_u_i_a3593ff47a23cb1fcedf1cda0c19e7eb9}} 
+\index{UI@{UI}!UI@{UI}}
+\index{UI@{UI}!UI@{UI}}
+\doxysubsubsection{UI()}
+{\footnotesize\ttfamily U\+I\+::\+UI (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::vector$<$ int $>$$>$}]{map }\end{DoxyParamCaption})}
+
+Constructor initializes the \doxyref{UI}{p.}{class_u_i} fully.
+
+Creates a main (S\+DL) window for rendering, and loads the sprites from a bitmap on disk.
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & the map of the board \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_u_i_a95aad652d6420d2aadd0fa90022af750}} 
+\index{UI@{UI}!setLives@{setLives}}
+\index{setLives@{setLives}!UI@{UI}}
+\doxysubsubsection{setLives()}
+{\footnotesize\ttfamily void U\+I\+::set\+Lives (\begin{DoxyParamCaption}\item[{int}]{lives }\end{DoxyParamCaption})}
+
+Setter for the lives. 
+\begin{DoxyParams}{Parameters}
+{\em lives} & lives \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_u_i_a6b628d22bffffb32e08e78afe556e02e}} 
+\index{UI@{UI}!setScore@{setScore}}
+\index{setScore@{setScore}!UI@{UI}}
+\doxysubsubsection{setScore()}
+{\footnotesize\ttfamily void U\+I\+::set\+Score (\begin{DoxyParamCaption}\item[{int}]{score }\end{DoxyParamCaption})}
+
+Setter for the score.
+
+
+\begin{DoxyParams}{Parameters}
+{\em score} & score \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_u_i_a0a835bd403b95f5f7b0a7ec2a4be1c3f}} 
+\index{UI@{UI}!update@{update}}
+\index{update@{update}!UI@{UI}}
+\doxysubsubsection{update()}
+{\footnotesize\ttfamily void U\+I\+::update (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \textbf{ Game\+Object\+Struct} $>$}]{objects }\end{DoxyParamCaption})}
+
+Update the screen
+\begin{DoxyItemize}
+\item Draw the background
+\item Draw the score
+\item Draw the remaining lives
+\item Draw the objects (last)
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em objects} & Objects that are drawn last. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\textbf{ U\+I.\+h}\item 
+src/\textbf{ U\+I.\+cpp}\end{DoxyCompactItemize}
