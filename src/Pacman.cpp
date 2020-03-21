@@ -49,15 +49,15 @@ void Pacman::checkCollision(std::vector<Eatable*>& tmpEatableList, std::vector<G
     {
         if (this->hasCollided(tmpGhosts[i])) //check for collison with ghost
         {
-            if (tmpGhosts[i]->getGhostScared()) 
+            if (tmpGhosts[i]->getGhostScared())  //if ghost is scared
             {
-                this->eatGhost(tmpGhosts[i]);
+                this->eatGhost(tmpGhosts[i]); //eat ghost
             }
-            else
+            else //if not scared
             {
-                this->loseLive();
-                this->setPosition({ 1,1 });
-                this->resetGhosts(tmpGhosts);
+                this->loseLive(); 
+                this->setPosition({ 1,1 }); //reset pacmans position
+                this->resetGhosts(tmpGhosts); //reset position of ghosts
             }
         }
     }
