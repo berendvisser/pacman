@@ -15,7 +15,7 @@ public:
 	{
 		this->entityType.x = 0;	//set initial position of entity
 		this->entityType.y = 0; // ""
-		this->entityType.dir = UP;	//set initial direction	
+		this->entityType.dir = LEFT;	//set initial direction	
 	}
 	
 	/*constructor with type*/

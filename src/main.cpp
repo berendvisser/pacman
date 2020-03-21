@@ -23,8 +23,6 @@
 
 
 
-void checkCollion(MovableEntity& tmpMovable, std::vector<Eatable*>& tmpEatableList, int& score, unsigned& tmpLives);
-
 
 /// Callback function to update the game state.
 ///
@@ -52,8 +50,8 @@ int main(int /*argc*/, char ** /*argv*/)
 {
     
     Board map;
-    Direction inputDirKey = RIGHT;
-    Direction inputDirTick = RIGHT;
+    Direction inputDirKey = LEFT;
+    Direction inputDirTick = LEFT;
 
     unsigned lives = 5;
 
@@ -73,7 +71,7 @@ int main(int /*argc*/, char ** /*argv*/)
 
     //add pacman 
     Pacman pacman(&map);
-    pacman.setPosition({ 1, 1 });
+    pacman.setPosition({ 1, 2 });
 
     //add dots
     std::vector<Eatable*> dots;
@@ -112,7 +110,7 @@ int main(int /*argc*/, char ** /*argv*/)
     Ghost blinky(BLINKY, &map);
     Ghost clyde(CLYDE, &map);
 
-    std::vector<Eatable*> ghosts = { &inky, &pinky, &blinky, &clyde };
+    std::vector<Ghost*> ghosts = { &inky, &pinky, &blinky, &clyde };
 
     inky.setPosition({ 12,13 });
     pinky.setPosition({ 13,13 });
@@ -178,12 +176,15 @@ int main(int /*argc*/, char ** /*argv*/)
             {
                 
 
-
+                //Move pacman
                 pacman.setDirection(inputDirTick);//set new input direction
-                pacman.moveEntity(); //move pacman
-                checkCollion(pacman, dots, score, lives); //check if pacman collided with dots
-                checkCollion(pacman, ghosts, score, lives); //check if pacman collided with ghosts
+                pacman.moveEntity();
 
+                pacman.checkCollision(dots, ghosts);
+                pacman.checkCollision(energizers, ghosts);
+                
+
+    
 
                 
                 //move ghosts
@@ -197,7 +198,7 @@ int main(int /*argc*/, char ** /*argv*/)
                 clyde.moveEntity();
 
                                
-                checkCollion(pacman, ghosts, score, lives); //check again if pacman collided with ghosts
+                pacman.checkCollision(dots, ghosts);
 
 
                 //add dots to render list
@@ -229,8 +230,9 @@ int main(int /*argc*/, char ** /*argv*/)
                 objects.push_back(pacman.getEntityType());
                 
                 //set score and lives
-                ui.setLives(lives);                
-                ui.setScore(score);
+                ui.setLives(pacman.getLives());                
+                ui.setScore(pacman.getScore());
+                
                 
                 //update map
                 ui.update(objects);
@@ -238,7 +240,7 @@ int main(int /*argc*/, char ** /*argv*/)
                 previousTicks = currentTicks; //update amount of previous ticks
             }
 
-            if (!lives)
+            if (!pacman.getLives())
             {
                 quit = true; //exit game
                 std::cout << "Game lost, scored " << score << " points!\n"; //print score
@@ -256,31 +258,6 @@ int main(int /*argc*/, char ** /*argv*/)
 }
 
 /*Function checks if movable entity collided with eatables*/
-void checkCollion(MovableEntity &tmpMovable, std::vector<Eatable*> &tmpEatableList, int& score, unsigned &tmpLives)
-{
-    for (int i = 0; i < tmpEatableList.size(); i++)
-    {
-        if (tmpMovable.hasCollided(tmpEatableList[i]))
-        {
-            int scoreOnCollion = tmpEatableList[i]->getScoreOncollision();
-            if (scoreOnCollion > 0)
-            {
-                score += scoreOnCollion;
-                delete tmpEatableList[i];
-                tmpEatableList.erase(tmpEatableList.begin() + i);
-            }
-            else
-            {
-                tmpLives--;
-                tmpMovable.setPosition({ 1,1 });
-                for (int j = 0; j < tmpEatableList.size(); j++)
-                {
-                    static_cast<Ghost*>(tmpEatableList[j])->setPosition({ 12 + j,13 });
-                }
-            }
-        }
 
-    }
-}
 
 

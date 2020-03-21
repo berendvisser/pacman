@@ -101,11 +101,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Board.cpp" />
-    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\MovableEntity.cpp" />
-    <ClCompile Include="src\Pacman.cpp" />
     <ClCompile Include="src\UI.cpp" />
   </ItemGroup>
   <ItemGroup>

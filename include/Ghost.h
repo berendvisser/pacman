@@ -13,6 +13,8 @@ public:
 	Ghost(Type ghostType, Board* tmpBoard) :MovableEntity(tmpBoard, ghostType), Eatable(ghostType), Entity(ghostType)
 	{
 		this->setScoreOnCollision(-1); //set score on collision
+		this->isScared = false;
+		this->normalType = ghostType;
 		
 	}
 
@@ -22,7 +24,10 @@ public:
 
 
 	void setNewDirection()
-	{
+	{		
+		this->updateScaredState();
+
+
 		Position freePosition; //free position with respect to current spot
 		unsigned freeDirections = 0; //number of directions to choose from
 
@@ -56,6 +61,45 @@ public:
 
 	}
 
+	/*Make ghost scared for 50 ticks*/
+	void setScared(bool scared)
+	{
+	
+		this->isScared = scared;
+		this->ticksLeftScared = 50;
+		this->setScoreOnCollision(20);
+
+
+
+	}
+
+	/*check if ghost is currently scared*/
+	bool getGhostScared()
+	{
+		return this->isScared;
+	}
+	
+
+
+protected:
+	/*Update scared state*/
+	void updateScaredState()
+	{
+		
+		if (this->isScared && this->ticksLeftScared > 0)
+		{
+			this->ticksLeftScared--;
+			this->entityType.type = SCARED;
+		}
+		else
+		{
+			this->setScared(false);
+			this->entityType.type = normalType;
+			this->setScoreOnCollision(-1);
+			
+		}
+
+	}
 
 	/*Return opposite direction of Ghost*/
 	Direction getOppositeDirection()
@@ -75,6 +119,8 @@ public:
 		case RIGHT:
 			return LEFT;
 			break;
+		default:
+			return LEFT;
 		}
 			
 				
@@ -90,7 +136,9 @@ private:
 		}
 	}
 
-	 
+	bool isScared;
+	unsigned ticksLeftScared;
+	Type normalType;
 	
 
 };
