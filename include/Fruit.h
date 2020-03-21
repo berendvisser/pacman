@@ -7,41 +7,19 @@
 class Fruit: public Eatable
 {
 public:
-	Fruit(Board * tmpBoard)
-	{
-		std::srand(std::time(NULL));
+	/*Constructor*/
+	Fruit(Board* tmpBoard);
 
-		this->map = tmpBoard;
-		this->entityType.type = static_cast<Type>(7+ (std::rand()%6));
-		this->setRandomPosition();
-		this->setScoreOnCollision(50);
-		
-	}
 	/*Deconstructor*/
-	~Fruit(){}
+	~Fruit();
 
-	void setRandomPosition()
-	{
-		Position randomPosition = getRandomPosition();
-		while (map->isWall(randomPosition))
-		{
-			randomPosition = getRandomPosition();
-		}
-		this->setPosition(randomPosition);
-
-	}
-
-
+	/*Function sets position of fruit to random non wall position on the map*/
+	void setRandomPosition();
 
 private:
-	Position getRandomPosition()
-	{
-		int boardSizeX = map->getBoardSizeX();
-		int boardSizeY = map->getBoardSizeY();
-		
-		return { std::rand() % boardSizeX,	std::rand() % boardSizeY };
+	/*gets a random position on the entire map*/
+	Position getRandomPosition();
 
-	}
 	Board* map;
 
 };

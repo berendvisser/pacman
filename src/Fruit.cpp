@@ -1,48 +1,46 @@
+/*
+ *  Created on: March, 2020
+ *      Author: Berend Visser
+ *       Group: 30
+ */
 #pragma once
+#include "Fruit.h"
 
-#include "Eatable.h"
-#include <cstdlib>
-#include <ctime>
 
-class Fruit: public Eatable
+Fruit::Fruit(Board * tmpBoard)
 {
-public:
-	Fruit(Board * tmpBoard)
-	{
-		std::srand(std::time(NULL));
-
-		this->map = tmpBoard;
-		this->entityType.type = static_cast<Type>(7+ (std::rand()%6));
-		this->setRandomPosition();
-		this->setScoreOnCollision(50);
+	std::srand(std::time(NULL)); //Create seed for random function
+	this->map = tmpBoard; //set initialize pointer of map
+	this->entityType.type = static_cast<Type>(7+ (std::rand()%6)); //Select one of 6 fruit types by random
+	this->setRandomPosition(); //Set position of fruit to random spot on the map
+	this->setScoreOnCollision(50); //set score of the fruit
 		
-	}
-	/*Deconstructor*/
-	~Fruit(){}
+}
 
-	void setRandomPosition()
+
+Fruit::~Fruit()
+{
+}
+
+void Fruit::setRandomPosition()
+{
+	Position randomPosition = getRandomPosition(); //get random position on map
+
+	while (map->isWall(randomPosition)) //check if random position is wall
 	{
-		Position randomPosition = getRandomPosition();
-		while (map->isWall(randomPosition))
-		{
-			randomPosition = getRandomPosition();
-		}
-		this->setPosition(randomPosition);
-
+		randomPosition = getRandomPosition(); //get new random position
 	}
+	this->setPosition(randomPosition); //set position of fruit
 
+}
 
-
-private:
-	Position getRandomPosition()
-	{
-		int boardSizeX = map->getBoardSizeX();
-		int boardSizeY = map->getBoardSizeY();
+Position Fruit::getRandomPosition()
+{
+	int boardSizeX = map->getBoardSizeX(); //get size of board
+	int boardSizeY = map->getBoardSizeY(); //""
 		
-		return { std::rand() % boardSizeX,	std::rand() % boardSizeY };
+	return { std::rand() % boardSizeX,	std::rand() % boardSizeY };//return random position on map
 
-	}
-	Board* map;
+}
 
-};
 
