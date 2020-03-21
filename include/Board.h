@@ -20,61 +20,22 @@ class Board
 public:
 
     /*Constructure will loads board.def file in map*/
-    Board()
-    {
-        //load map
-        this->map = { {
-        #include "board.def"
-            } };
-
-        //set size of board
-        this->sizeBoardY = map.size();
-        this->sizeBoardX = map[1].size();
-    }
+    Board();
 
     /*Deconstructor*/
-    ~Board(){}
+    ~Board();
 
     /*Return map*/
-    std::vector<std::vector<int>> getBoard()
-    {
-        return this->map;
-    }
+    std::vector<std::vector<int>> getBoard();
 
     /*Checks if a certain position on the map is all wall or not, defaults to true if position is outside of map*/
-    bool isWall(Position tmpPosition)
-    {
-        //check if called value is within bounds
-        if (tmpPosition.x < sizeBoardX && tmpPosition.y < sizeBoardY) {
-
-            //check if wall exists
-            if (map[tmpPosition.y][tmpPosition.x])
-            {
-                return true; //return true if wall found
-            }
-            else
-            {
-                return false; //return false if no wall found
-            }
-        }
-        else
-        {
-            return true; //default to wall found
-        }
-
-    }
+    bool isWall(Position tmpPosition);
 
     /*Return size of the map in x direction*/
-    unsigned getBoardSizeX()
-    {
-        return this->sizeBoardX;
-    }
+    unsigned getBoardSizeX();
+    
     /*Return size of the map in y direction*/
-    unsigned getBoardSizeY()
-    {
-        return this->sizeBoardY;
-    }
-
+    unsigned getBoardSizeY();
 
 private:
     
