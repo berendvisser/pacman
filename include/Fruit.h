@@ -14,6 +14,7 @@ public:
 		this->map = tmpBoard;
 		this->entityType.type = static_cast<Type>(7+ (std::rand()%6));
 		this->setRandomPosition();
+		this->setScoreOnCollision(50);
 		
 	}
 	/*Deconstructor*/

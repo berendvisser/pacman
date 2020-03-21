@@ -119,7 +119,11 @@ int main(int /*argc*/, char ** /*argv*/)
     clyde.setPosition({ 15,13 });
 
     //add fruit
-    Fruit fruit(&map);
+    std::vector<Eatable*> fruits;
+    
+    unsigned fruitCounter =50;
+
+    
 
     
 
@@ -154,9 +158,17 @@ int main(int /*argc*/, char ** /*argv*/)
                     inputDirKey = DOWN;
                     break;
                 case SDLK_ESCAPE:
-
                     quit = true;
                     break;
+                case SDLK_SPACE:
+                    if (previousTicks == 100000) {
+                        previousTicks = currentTicks;
+                    }
+                    else
+                    {
+                        previousTicks = 100000;
+                    }
+                    
                 }
             }
         }
@@ -186,6 +198,7 @@ int main(int /*argc*/, char ** /*argv*/)
 
                 pacman.checkCollision(dots, ghosts);
                 pacman.checkCollision(energizers, ghosts);
+               
                 
 
     
@@ -202,7 +215,13 @@ int main(int /*argc*/, char ** /*argv*/)
                 clyde.moveEntity();
 
                                
-                pacman.checkCollision(dots, ghosts);
+                pacman.checkCollision(fruits, ghosts);
+
+                if (fruitCounter < pacman.getScore())
+                {
+                    fruitCounter += 100;
+                    fruits.push_back(new Fruit(&map));
+                }
 
 
                 //add dots to render list
@@ -230,9 +249,16 @@ int main(int /*argc*/, char ** /*argv*/)
                     objects.push_back(ghosts[i]->getEntityType());
                 }
 
+                //Add fruits to render list
+
+                for (int i = 0; i < fruits.size(); i++)
+                {
+                    objects.push_back(fruits[i]->getEntityType());
+                }
+
                 //add pacman to render list
                 objects.push_back(pacman.getEntityType());
-                objects.push_back(fruit.getEntityType());
+                
                 //set score and lives
                 ui.setLives(pacman.getLives());                
                 ui.setScore(pacman.getScore());
