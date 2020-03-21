@@ -74,11 +74,10 @@ int main(int /*argc*/, char ** /*argv*/)
     MovableEntity pacman(PACMAN, &map);
     pacman.setPosition({ 1, 1 });
 
+    //add dots
     std::vector<Eatable*> dots;
 
-    //Add energizers
-    std::vector<Eatable*> energizers;
-    energizers.push_back(new Energizer(ENERGIZER));
+
 
     //Fills board with dots
     for (int y = 0; y < map.getBoardSizeY(); y++)
@@ -93,6 +92,18 @@ int main(int /*argc*/, char ** /*argv*/)
             
         }
     }
+
+
+    //Add energizers
+    std::vector<Eatable*> energizers;
+    for (int i = 0; i < 4; i++)
+    {
+        energizers.push_back(new Energizer(ENERGIZER));
+    }
+    energizers[0]->setPosition({ 1, 1 });
+    energizers[1]->setPosition({ 1, 25 });
+    energizers[2]->setPosition({ 26, 1 });
+    energizers[3]->setPosition({ 26, 25 });
 
     //init ghosts
     Ghost inky(INKY, &map);
@@ -199,6 +210,12 @@ int main(int /*argc*/, char ** /*argv*/)
                 for (int i = 0; i < dots.size(); i++)
                 {
                     objects.push_back(dots[i]->getEntityType());
+                }
+
+                //add energizers to renderlist
+                for (int i = 0; i < energizers.size(); i++)
+                {
+                    objects.push_back(energizers[i]->getEntityType());
                 }
 
                 //add ghosts to render list
