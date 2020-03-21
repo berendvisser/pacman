@@ -1,94 +1,110 @@
+/*
+ *  Created on: March, 2020
+ *      Author: Berend Visser
+ *       Group: 30
+ */
 #pragma once
+#include "Pacman.h"
 
-#include "MovableEntity.h"
 
-
-class Pacman : public MovableEntity
+Pacman::Pacman(Board* tmpBoard) :MovableEntity(tmpBoard),Entity()
 {
-public:
-	Pacman(Board* tmpBoard) :MovableEntity(tmpBoard),Entity()
-	{
-		this->entityType.type = PACMAN; //initial type
-        this->score = 0;//initial score
-        this->lives = 5;//initial lives
-	}
-	~Pacman(){}
+	this->entityType.type = PACMAN; //initial type
+    this->score = 0;//initial score
+    this->lives = 5;//initial lives
+}
+Pacman::~Pacman()
+{
+}
 
-    void checkCollision(std::vector<Eatable*>& tmpEatableList, std::vector<Ghost*> &tmpGhosts)
+
+void Pacman::checkCollision(std::vector<Eatable*>& tmpEatableList, std::vector<Ghost*> &tmpGhosts)
+{
+    for (int i = 0; i < tmpEatableList.size(); i++) //loop over all eatables
     {
-        for (int i = 0; i < tmpEatableList.size(); i++)
+        if (this->hasCollided(tmpEatableList[i])) //check if pacman collided with eatable in list
         {
-            if (this->hasCollided(tmpEatableList[i]))
+            int scoreOnCollion = tmpEatableList[i]->getScoreOncollision(); //get score on collision
+
+            if (scoreOnCollion > 0) //if score is more than one
             {
-                int scoreOnCollion = tmpEatableList[i]->getScoreOncollision();
-                if (scoreOnCollion > 0)
-                {
-                    this->increaseScore(tmpEatableList[i]->getScoreOncollision());
+                this->increaseScore(tmpEatableList[i]->getScoreOncollision()); //increase score of pacman
 
-                    delete tmpEatableList[i];
-                    tmpEatableList.erase(tmpEatableList.begin() + i); 
-                }
+                delete tmpEatableList[i]; //Delete object from memory
+                tmpEatableList.erase(tmpEatableList.begin() + i); //erase pointer from list
+            }
+            else //energizer gives 0 points so this statement is triggered
+            {
+                delete tmpEatableList[i]; //Delete energizer from memory
+                tmpEatableList.erase(tmpEatableList.begin() + i); //erase pointer from list
 
-                else if (scoreOnCollion == 0)
-                {
-                    delete tmpEatableList[i]; 
-                    tmpEatableList.erase(tmpEatableList.begin() + i); 
-
-                    for (int j = 0; j < tmpGhosts.size(); j++)
-                    {
-                        tmpGhosts[j]->setScared(true);
-                    }
-                }
-
+                this->scareGhosts(tmpGhosts); //scare all ghosts
             }
 
         }
 
-        for (int i = 0; i < tmpGhosts.size(); i++)
+    }
+
+    for (int i = 0; i < tmpGhosts.size(); i++) //loop over all ghosts
+    {
+        if (this->hasCollided(tmpGhosts[i])) //check for collison with ghost
         {
-            if (this->hasCollided(tmpGhosts[i]))
+            if (tmpGhosts[i]->getGhostScared()) 
             {
-                if (tmpGhosts[i]->getGhostScared())
-                {
-                    this->increaseScore(tmpGhosts[i]->getScoreOncollision());
-                    tmpGhosts[i]->setPosition({ 12 + i,13 });
-                    tmpGhosts[i]->setScared(false);
-                }
-                else
-                {
-                    this->loseLive();
-                    this->setPosition({ 1,1 });
-                    for (int j = 0; j < tmpGhosts.size(); j++)
-                    {
-                        tmpGhosts[j]->setPosition({ 12 + j,13 });
-                        tmpGhosts[j]->setScared(false);
-                    }
-                }
+                this->eatGhost(tmpGhosts[i]);
+            }
+            else
+            {
+                this->loseLive();
+                this->setPosition({ 1,1 });
+                this->resetGhosts(tmpGhosts);
             }
         }
     }
+}
 
-    unsigned getLives()
+void Pacman::eatGhost(Ghost*& tmpGhosts)
+{
+    this->increaseScore(tmpGhosts->getScoreOncollision()); //increase score of pacman
+    tmpGhosts->setPosition({ 12 , 13 }); //set position of ghost
+    tmpGhosts->setScared(false); //set scared state of ghost
+}
+
+void Pacman::resetGhosts(std::vector<Ghost*>& tmpGhosts)
+{
+    for (int j = 0; j < tmpGhosts.size(); j++) //Loop over all ghosts
     {
-        return this->lives;
+        tmpGhosts[j]->setPosition({ 12 + j,13 }); //Set position of ghosts
+        tmpGhosts[j]->setScared(false); //set scared state of ghosts
     }
+}
 
-    void increaseScore(int points)
+void Pacman::scareGhosts(std::vector<Ghost*>& tmpGhosts)
+{
+    for (int j = 0; j < tmpGhosts.size(); j++) //loop over all ghosts
     {
-        this->score += points;
+        
+        tmpGhosts[j]->setScared(true);//scare ghosts
     }
+}
 
-    int getScore()
-    {
-        return this->score;
-    }
+unsigned Pacman::getLives()
+{
+    return this->lives; //return amount of lives of pacman
+}
 
-    void loseLive()
-    {
-        this->lives--;
-    }
+void Pacman::increaseScore(int points)
+{
+    this->score += points; //increase score of pacman by number of points
+}
 
-private:
-    int score;
-    unsigned lives;
-};
+int Pacman::getScore()
+{
+    return this->score; //return score of pacman
+}
+
+void Pacman::loseLive()
+{
+    this->lives--; //reduce amount of lives of pacman by one
+}
+

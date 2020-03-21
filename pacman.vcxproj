@@ -108,6 +108,7 @@
     <ClCompile Include="src\Ghost.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MovableEntity.cpp" />
+    <ClCompile Include="src\Pacman.cpp" />
     <ClCompile Include="src\UI.cpp" />
   </ItemGroup>
   <ItemGroup>

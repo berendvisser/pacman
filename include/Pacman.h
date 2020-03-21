@@ -1,94 +1,49 @@
+/*
+ *  Created on: March, 2020
+ *      Author: Berend Visser
+ *       Group: 30
+ */
 #pragma once
 
 #include "MovableEntity.h"
+#include "Eatable.h"
+#include "Ghost.h"
 
 
 class Pacman : public MovableEntity
 {
 public:
-	Pacman(Board* tmpBoard) :MovableEntity(tmpBoard),Entity()
-	{
-		this->entityType.type = PACMAN; //initial type
-        this->score = 0;//initial score
-        this->lives = 5;//initial lives
-	}
-	~Pacman(){}
+    Pacman(Board* tmpBoard);
 
-    void checkCollision(std::vector<Eatable*>& tmpEatableList, std::vector<Ghost*> &tmpGhosts)
-    {
-        for (int i = 0; i < tmpEatableList.size(); i++)
-        {
-            if (this->hasCollided(tmpEatableList[i]))
-            {
-                int scoreOnCollion = tmpEatableList[i]->getScoreOncollision();
-                if (scoreOnCollion > 0)
-                {
-                    this->increaseScore(tmpEatableList[i]->getScoreOncollision());
+    ~Pacman();
 
-                    delete tmpEatableList[i];
-                    tmpEatableList.erase(tmpEatableList.begin() + i); 
-                }
 
-                else if (scoreOnCollion == 0)
-                {
-                    delete tmpEatableList[i]; 
-                    tmpEatableList.erase(tmpEatableList.begin() + i); 
+    /*Check if pacman has collided with a ghost, a dot or a energizer and set ghosts to scared if */
+    void checkCollision(std::vector<Eatable*>& tmpEatableList, std::vector<Ghost*>& tmpGhosts);
 
-                    for (int j = 0; j < tmpGhosts.size(); j++)
-                    {
-                        tmpGhosts[j]->setScared(true);
-                    }
-                }
+    /*Reset ghosts to ghostpenn*/
+    void resetGhosts(std::vector<Ghost*>& tmpGhosts);
 
-            }
+    /*Set ghosts to scared*/
+    void scareGhosts(std::vector<Ghost*>& tmpGhosts);
 
-        }
+    /*Eat ghost and increase points of pacman and put ghost in ghostpenn*/
+    void Pacman::eatGhost(Ghost*& tmpGhosts);
 
-        for (int i = 0; i < tmpGhosts.size(); i++)
-        {
-            if (this->hasCollided(tmpGhosts[i]))
-            {
-                if (tmpGhosts[i]->getGhostScared())
-                {
-                    this->increaseScore(tmpGhosts[i]->getScoreOncollision());
-                    tmpGhosts[i]->setPosition({ 12 + i,13 });
-                    tmpGhosts[i]->setScared(false);
-                }
-                else
-                {
-                    this->loseLive();
-                    this->setPosition({ 1,1 });
-                    for (int j = 0; j < tmpGhosts.size(); j++)
-                    {
-                        tmpGhosts[j]->setPosition({ 12 + j,13 });
-                        tmpGhosts[j]->setScared(false);
-                    }
-                }
-            }
-        }
-    }
+    /*Get the amount of lives of pacman*/
+    unsigned getLives();
 
-    unsigned getLives()
-    {
-        return this->lives;
-    }
+    /*increase score of pacman by a certain amount*/
+    void increaseScore(int points);
 
-    void increaseScore(int points)
-    {
-        this->score += points;
-    }
+    /*Get the current score of pacman*/
+    int getScore();
 
-    int getScore()
-    {
-        return this->score;
-    }
-
-    void loseLive()
-    {
-        this->lives--;
-    }
+protected:
+    /*Calling this function reduces the amout of live of pacman by one*/
+    void loseLive();
 
 private:
-    int score;
-    unsigned lives;
+    int score; //The score of pacman
+    unsigned lives; //The amount of lives of pacman
 };
