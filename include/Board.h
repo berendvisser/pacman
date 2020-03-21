@@ -1,3 +1,8 @@
+/*
+ *  Created on: March, 2020
+ *      Author: Berend Visser
+ *       Group: 30
+ */
 #pragma once
 #include<vector>
 /*A struct which defines the position of a item*/
@@ -19,7 +24,7 @@ class Board
     //function and variables that are publically available
 public:
 
-    /*Constructure will loads board.def file in map*/
+    /*Constructor will loads board.def file in map*/
     Board();
 
     /*Deconstructor*/

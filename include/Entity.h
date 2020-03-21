@@ -1,3 +1,8 @@
+/*
+ *  Created on: March, 2020
+ *      Author: Berend Visser
+ *       Group: 30
+ */
 #pragma once
 
 #include<GameObjectStruct.h>
@@ -11,49 +16,23 @@ public:
 	/*Constructor of map, takes as argument entityType like pacman or fruit and needs a pointer to the board on which the object will be placed*/
 	
 	/*default constructor*/
-	Entity()
-	{
-		this->entityType.x = 0;	//set initial position of entity
-		this->entityType.y = 0; // ""
-		this->entityType.dir = LEFT;	//set initial direction	
-	}
+	Entity();
 	
 	/*constructor with type*/
-	Entity(Type entityType) 
-	{
-		this->entityType.type = entityType;	//set type of entity
-		this->entityType.x = 0;	//set initial position of entity
-		this->entityType.y = 0; // ""
-		this->entityType.dir = UP;	//set initial direction	
-	}
+	Entity(Type entityType);
 	
 	/*Deconstructor of Entity*/
-	~Entity() 
-	{
-	}
+	~Entity();
 
 	/*Return position of entity on the map*/
-	Position getPosition()
-	{
-		Position tmpPosition; //return position
-		tmpPosition.x = this->entityType.x; //get x postion of entity
-		tmpPosition.y = this->entityType.y; //get y position of entity
-		return tmpPosition; //return position
-	}
+	Position getPosition();
 
 
 	/*Get the objectstruct*/
-	GameObjectStruct getEntityType() {
-		return entityType; //return entity type
-	}
+	GameObjectStruct getEntityType();
 
 	/*Set position of entity*/
-	void setPosition(Position tmpPosition)
-	{
-		this->entityType.x = tmpPosition.x; //set x position of entity
-		this->entityType.y = tmpPosition.y; //set y position of entity
-	}
-
+	void setPosition(Position tmpPosition);
 
 
 // members can be accessed by subclasses

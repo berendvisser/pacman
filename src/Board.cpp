@@ -1,14 +1,10 @@
 /*
- *  Created on: Jan 29, 2015
+ *  Created on: March, 2020
  *      Author: Berend Visser
  *       Group: 30
  */
-
 #pragma once
 #include"Board.h"
-
-
-
 
 Board::Board()
 {
@@ -21,7 +17,6 @@ Board::Board()
     this->sizeBoardY = map.size();
     this->sizeBoardX = map[1].size();
 }
-
 
 Board::~Board(){}
 
@@ -52,7 +47,6 @@ bool Board::isWall(Position tmpPosition)
     }
 
 }
-
 
 unsigned Board::getBoardSizeX()
 {
