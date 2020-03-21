@@ -35,15 +35,10 @@ void checkCollion(MovableEntity& tmpMovable, std::vector<Eatable*>& tmpEatableLi
 Uint32 gameUpdate(Uint32 interval, void * param)
 {
     // Do game loop update here
-    void** x = static_cast<void**>(param);
-
-    
-    
-
-    
+    void** x = static_cast<void**>(param); 
     Direction* tmpdirectionkey = static_cast<Direction*>(x[1]);
     Direction* tmpdirectiontick = static_cast<Direction*>(x[2]);
-    *tmpdirectiontick = *tmpdirectionkey;
+    *tmpdirectiontick = *tmpdirectionkey; 
 
     unsigned * tmpTick = static_cast<unsigned*>(x[0]);
     (*tmpTick)++;    
@@ -96,6 +91,8 @@ int main(int /*argc*/, char ** /*argv*/)
     Ghost pinky(PINKY, &map);
     Ghost blinky(BLINKY, &map);
     Ghost clyde(CLYDE, &map);
+
+    std::vector<Eatable*> ghosts = { &inky, &pinky, &blinky, &clyde };
 
     inky.setPosition({ 12,13 });
     pinky.setPosition({ 13,13 });
@@ -151,17 +148,20 @@ int main(int /*argc*/, char ** /*argv*/)
         
         while (!SDL_TICKS_PASSED(SDL_GetTicks(), timeout)) {
             // ... do work until timeout has elapsed
+            
+            
+            
             std::vector<GameObjectStruct> objects;
 
             if (currentTicks > previousTicks)
             {
                 pacman.setDirection(inputDirTick);//set new input direction
-                pacman.moveEntity();//move pacman
+                pacman.moveEntity(); //move pacman
                 //inky.moveEntity();
 
 
                 checkCollion(pacman, dots, score); //check if pacman collided with dots
-                
+                checkCollion(pacman, ghosts, score); 
                 
 
 
@@ -170,8 +170,14 @@ int main(int /*argc*/, char ** /*argv*/)
                 {
                     objects.push_back(dots[i]->getEntityType());
                 }
+
+                for (int i = 0; i <ghosts.size(); i++)
+                {
+                    objects.push_back(ghosts[i]->getEntityType());
+                }
+
                 objects.push_back(pacman.getEntityType());
-                objects.push_back(inky.getEntityType());
+                
                 ui.update(objects);
                 ui.setScore(score);
                 
@@ -197,9 +203,18 @@ void checkCollion(MovableEntity& tmpMovable, std::vector<Eatable*>& tmpEatableLi
     {
         if (tmpMovable.hasCollided(tmpEatableList[i]))
         {
-            score += tmpEatableList[i]->getScoreOncollision();
-            delete tmpEatableList[i];
-            tmpEatableList.erase(tmpEatableList.begin() + i);
+            int scoreOnCollion = tmpEatableList[i]->getScoreOncollision();
+            if (scoreOnCollion > 0)
+            {
+                score += scoreOnCollion;
+                delete tmpEatableList[i];
+                tmpEatableList.erase(tmpEatableList.begin() + i);
+            }
+            else
+            {
+                score = 0;
+                tmpMovable.setPosition({ 1,1 });
+            }
         }
 
     }
