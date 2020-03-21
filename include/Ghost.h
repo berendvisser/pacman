@@ -15,6 +15,7 @@ public:
 		this->setScoreOnCollision(-1); //set score on collision
 		this->isScared = false;
 		this->normalType = ghostType;
+		std::srand(std::time(NULL));
 		
 	}
 

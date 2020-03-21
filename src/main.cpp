@@ -17,6 +17,7 @@
 #include "Ghost.h"
 #include "Energizers.h"
 #include "Pacman.h"
+#include "Fruit.h"
 
 
 
@@ -116,6 +117,9 @@ int main(int /*argc*/, char ** /*argv*/)
     pinky.setPosition({ 13,13 });
     blinky.setPosition({ 14,13 });
     clyde.setPosition({ 15,13 });
+
+    //add fruit
+    Fruit fruit(&map);
 
     
 
@@ -228,7 +232,7 @@ int main(int /*argc*/, char ** /*argv*/)
 
                 //add pacman to render list
                 objects.push_back(pacman.getEntityType());
-                
+                objects.push_back(fruit.getEntityType());
                 //set score and lives
                 ui.setLives(pacman.getLives());                
                 ui.setScore(pacman.getScore());

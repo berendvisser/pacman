@@ -2,6 +2,7 @@
 
 #include "MovableEntity.h"
 
+
 class Pacman : public MovableEntity
 {
 public:
@@ -42,6 +43,7 @@ public:
             }
 
         }
+
         for (int i = 0; i < tmpGhosts.size(); i++)
         {
             if (this->hasCollided(tmpGhosts[i]))
@@ -59,6 +61,7 @@ public:
                     for (int j = 0; j < tmpGhosts.size(); j++)
                     {
                         tmpGhosts[j]->setPosition({ 12 + j,13 });
+                        tmpGhosts[j]->setScared(false);
                     }
                 }
             }

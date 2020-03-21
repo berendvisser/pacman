@@ -5,6 +5,9 @@ class Eatable : virtual public  Entity
 {
 public:
 	/*Constructor*/
+	Eatable(){}
+
+	/*constructor*/
 	Eatable(Type EatableType) :Entity(EatableType)
 	{
 		this->scoreOnCollision = 1; //standard score on collison
