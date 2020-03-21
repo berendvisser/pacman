@@ -1,4 +1,5 @@
 #pragma once
+
 #include "MovableEntity.h"
 #include "Eatable.h"
 #include <cstdlib>
@@ -9,7 +10,7 @@ class Ghost : public MovableEntity, public Eatable
 {
 public:
 	/*Constructor*/
-	Ghost(Type ghostType, Board* tmpBoard) :MovableEntity(ghostType, tmpBoard), Eatable(ghostType), Entity(ghostType)
+	Ghost(Type ghostType, Board* tmpBoard) :MovableEntity(tmpBoard, ghostType), Eatable(ghostType), Entity(ghostType)
 	{
 		this->setScoreOnCollision(-1); //set score on collision
 		

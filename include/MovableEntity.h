@@ -6,10 +6,16 @@ class MovableEntity: virtual public  Entity
 //accessable outside of class
 public:
 	/*Constructor takes entity type and board as parameters*/
-	MovableEntity(Type EntityType, Board* tmpBoard) : Entity(EntityType)
+	MovableEntity(Board* tmpBoard, Type EntityType = PACMAN) : Entity(EntityType)
 	{
 		
 		this->map = tmpBoard; //Set map pointer to tmpBoard
+	}
+
+	/*Deconstructor*/
+	~MovableEntity()
+	{
+
 	}
 
 	/*Moves entity in current direction*/

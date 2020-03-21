@@ -16,13 +16,14 @@
 #include "Eatable.h"
 #include "Ghost.h"
 #include "Energizers.h"
+#include "Pacman.h"
 
 
 
 
 
 
-void checkCollion(MovableEntity& tmpMovable, std::vector<Eatable*>& tmpEatableList, int& score, unsigned &tmpLives);
+void checkCollion(MovableEntity& tmpMovable, std::vector<Eatable*>& tmpEatableList, int& score, unsigned& tmpLives);
 
 
 /// Callback function to update the game state.
@@ -71,7 +72,7 @@ int main(int /*argc*/, char ** /*argv*/)
 
 
     //add pacman 
-    MovableEntity pacman(PACMAN, &map);
+    Pacman pacman(&map);
     pacman.setPosition({ 1, 1 });
 
     //add dots
@@ -281,3 +282,5 @@ void checkCollion(MovableEntity &tmpMovable, std::vector<Eatable*> &tmpEatableLi
 
     }
 }
+
+

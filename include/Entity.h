@@ -10,8 +10,15 @@ class Entity
 public:
 	/*Constructor of map, takes as argument entityType like pacman or fruit and needs a pointer to the board on which the object will be placed*/
 	
+	/*default constructor*/
+	Entity()
+	{
+		this->entityType.x = 0;	//set initial position of entity
+		this->entityType.y = 0; // ""
+		this->entityType.dir = UP;	//set initial direction	
+	}
 	
-	
+	/*constructor with type*/
 	Entity(Type entityType) 
 	{
 		this->entityType.type = entityType;	//set type of entity

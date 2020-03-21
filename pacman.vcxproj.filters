@@ -44,9 +44,6 @@
     <ClInclude Include="include\MovableEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Pacman.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -60,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Energizers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Pacman.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
