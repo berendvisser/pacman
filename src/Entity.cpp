@@ -7,8 +7,6 @@
 #include "Entity.h"
 
 
-
-
 Entity::Entity()
 {
 	this->entityType.type = PACMAN; //default type

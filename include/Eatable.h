@@ -1,35 +1,28 @@
+/*
+ *  Created on: March, 2020
+ *      Author: Berend Visser
+ *       Group: 30
+ */
 #pragma once
 #include "Entity.h"
 
-class Eatable : virtual public  Entity
+class Eatable : virtual public  Entity 
 {
 public:
 	/*Constructor*/
 	Eatable(){}
 
 	/*constructor*/
-	Eatable(Type EatableType) :Entity(EatableType)
-	{
-		this->scoreOnCollision = 1; //standard score on collison
-	}
+	Eatable(Type EatableType);
 
 	/*Deconstructor*/
-	~Eatable()
-	{
-
-	}
+	~Eatable();
 
 	/*sets score on collision with this object*/
-	void setScoreOnCollision(int newScore)
-	{
-		scoreOnCollision = newScore; //set new score
-	}
+	void setScoreOnCollision(int newScore);
 
-	/*Returns score when collided with*/
-	int getScoreOncollision()
-	{
-		return scoreOnCollision; 
-	}
+	/*Returns score when collided with this object*/
+	int getScoreOncollision();
 
 private:
 	int scoreOnCollision;
