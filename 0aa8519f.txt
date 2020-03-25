@@ -1,0 +1,23 @@
+		* 0.4 person IMU
+			* esp32? (NO! this is uC)
+			* stm32?
+		* 2 person Pressure matrix
+			* order sensors
+			* analog processing
+		* 1 person communication
+			* bluetooth/wifi between laptop
+			* bluetooth/SPI/I2C between sensors
+		* 1 person UI
+			* connection to garmin?
+			* html webpage?
+			* something else?
+		* 1 person data processing/filtering sensors
+			* matlab
+			* edge detection
+		* 1.6 person data processing/filtering imu
+			* matlab
+			* edge detection
+		* 2.8 person report writing (1 per subsystem)
+			* 
+		* 0.2 person making sure people get work done
+
