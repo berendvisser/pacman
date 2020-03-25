@@ -63,7 +63,7 @@ void Pacman::checkCollision(std::vector<Eatable*>& tmpEatableList, std::vector<G
     }
 }
 
-void Pacman::eatGhost(Ghost*& tmpGhosts)
+void Pacman::eatGhost(Ghost* tmpGhosts)
 {
     this->increaseScore(tmpGhosts->getScoreOncollision()); //increase score of pacman
     tmpGhosts->setPosition({ 12 , 13 }); //set position of ghost

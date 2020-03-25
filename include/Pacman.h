@@ -25,10 +25,10 @@ public:
     void resetGhosts(std::vector<Ghost*>& tmpGhosts);
 
     /*Set ghosts to scared*/
-    void scareGhosts(std::vector<Ghost*>& tmpGhosts);
+    void scareGhosts(std::vector<Ghost*> &tmpGhosts);
 
     /*Eat ghost and increase points of pacman and put ghost in ghostpenn*/
-    void Pacman::eatGhost(Ghost*& tmpGhosts);
+    void eatGhost(Ghost* tmpGhosts);
 
     /*Get the amount of lives of pacman*/
     unsigned getLives();
