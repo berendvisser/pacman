@@ -20,7 +20,7 @@ Pacman::~Pacman()
 
 void Pacman::checkCollision(std::vector<Eatable*>& tmpEatableList, std::vector<Ghost*> &tmpGhosts)
 {
-    for (int i = 0; i < tmpEatableList.size(); i++) //loop over all eatables
+    for (size_t i = 0; i < tmpEatableList.size(); i++) //loop over all eatables
     {
         if (this->hasCollided(tmpEatableList[i])) //check if pacman collided with eatable in list
         {
@@ -45,7 +45,7 @@ void Pacman::checkCollision(std::vector<Eatable*>& tmpEatableList, std::vector<G
 
     }
 
-    for (int i = 0; i < tmpGhosts.size(); i++) //loop over all ghosts
+    for (size_t i = 0; i < tmpGhosts.size(); i++) //loop over all ghosts
     {
         if (this->hasCollided(tmpGhosts[i])) //check for collison with ghost
         {
@@ -72,16 +72,16 @@ void Pacman::eatGhost(Ghost* tmpGhosts)
 
 void Pacman::resetGhosts(std::vector<Ghost*>& tmpGhosts)
 {
-    for (int j = 0; j < tmpGhosts.size(); j++) //Loop over all ghosts
+    for (size_t j = 0; j < tmpGhosts.size(); j++) //Loop over all ghosts
     {
-        tmpGhosts[j]->setPosition({ 12 + j,13 }); //Set position of ghosts
+        tmpGhosts[j]->setPosition({ 12 + (int)j,13 }); //Set position of ghosts
         tmpGhosts[j]->setScared(false); //set scared state of ghosts
     }
 }
 
 void Pacman::scareGhosts(std::vector<Ghost*>& tmpGhosts)
 {
-    for (int j = 0; j < tmpGhosts.size(); j++) //loop over all ghosts
+    for (size_t j = 0; j < tmpGhosts.size(); j++) //loop over all ghosts
     {
         
         tmpGhosts[j]->setScared(true);//scare ghosts

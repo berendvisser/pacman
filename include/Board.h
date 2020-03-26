@@ -37,15 +37,15 @@ public:
     bool isWall(Position tmpPosition);
 
     /*Return size of the map in x direction*/
-    unsigned getBoardSizeX();
+    int getBoardSizeX();
     
     /*Return size of the map in y direction*/
-    unsigned getBoardSizeY();
+    int getBoardSizeY();
 
 private:
     
-    unsigned sizeBoardX; //Board size x direction
-    unsigned sizeBoardY; //Board size y direction
+    int sizeBoardX; //Board size x direction
+    int sizeBoardY; //Board size y direction
 
     std::vector<std::vector<int>> map; //map in vector or vectors
 };

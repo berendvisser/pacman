@@ -11,7 +11,7 @@ Ghost::Ghost(Type ghostType, Board* tmpBoard) :MovableEntity(tmpBoard, ghostType
 	this->setScoreOnCollision(-1); //set score on collision
 	this->isScared = false; //set initial scared state
 	this->normalType = ghostType; //set type to return to after scared state
-	std::srand(std::time(NULL)); //set seed for random movement behaviour	
+	std::srand((unsigned int)std::time(NULL)); //set seed for random movement behaviour	
 }
 
 /*Deconstructor*/

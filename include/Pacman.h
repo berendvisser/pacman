@@ -32,7 +32,7 @@ public:
 
     /*Get the amount of lives of pacman*/
     unsigned getLives();
-
+    
     /*increase score of pacman by a certain amount*/
     void increaseScore(int points);
 

@@ -9,9 +9,9 @@
 
 Fruit::Fruit(Board * tmpBoard)
 {
-	std::srand(std::time(NULL)); //Create seed for random function
+	std::srand((unsigned int)std::time(NULL)); //Create seed for random function
 	this->map = tmpBoard; //set initialize pointer of map
-	this->entityType.type = static_cast<Type>(7+ (std::rand()%6)); //Select one of 6 fruit types by random
+	this->entityType.type = static_cast<Type>(7+ (((int)std::rand())%6)); //Select one of 6 fruit types by random
 	this->setRandomPosition(); //Set position of fruit to random spot on the map
 	this->setScoreOnCollision(50); //set score of the fruit
 		

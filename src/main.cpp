@@ -109,7 +109,7 @@ int main(int /*argc*/, char ** /*argv*/)
     //add fruit
     std::vector<Eatable*> fruits; //vector of fruits on map
     
-    unsigned fruitCounter = 100; //score before first fruit is dropped
+    int fruitCounter = 100; //score before first fruit is dropped
 
 
 
@@ -204,27 +204,28 @@ int main(int /*argc*/, char ** /*argv*/)
                     quit = true;
                 }
 
+                size_t i;
                 //add dots to renderlist
-                for (int i = 0; i < dots.size(); i++)
+                for (i = 0; i < dots.size(); i++)
                 {
                     objects.push_back(dots[i]->getEntityType());
                 }
 
                 //add energizers to renderlist
-                for (int i = 0; i < energizers.size(); i++)
+                for (i = 0; i < energizers.size(); i++)
                 {
                     objects.push_back(energizers[i]->getEntityType());
                 }
                     
                 //Add fruits to render list
 
-                for (int i = 0; i < fruits.size(); i++)
+                for (i = 0; i < fruits.size(); i++)
                 {
                     objects.push_back(fruits[i]->getEntityType());
                 }
             
                 //add ghosts to render list
-                for (int i = 0; i <ghosts.size(); i++)
+                for (i = 0; i <ghosts.size(); i++)
                 {
                     objects.push_back(ghosts[i]->getEntityType());
                 }

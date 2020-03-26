@@ -48,13 +48,13 @@ bool Board::isWall(Position tmpPosition)
 
 }
 
-unsigned Board::getBoardSizeX()
+int Board::getBoardSizeX()
 {
     return this->sizeBoardX;
 }
 
 
-unsigned Board::getBoardSizeY()
+int Board::getBoardSizeY()
 {
     return this->sizeBoardY;
 }
