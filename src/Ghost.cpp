@@ -3,7 +3,6 @@
  *      Author: Berend Visser
  *       Group: 30
  */
-#pragma once
 #include "Ghost.h"
 
 Ghost::Ghost(Type ghostType, Board* tmpBoard) :MovableEntity(tmpBoard, ghostType), Eatable(ghostType), Entity(ghostType)
